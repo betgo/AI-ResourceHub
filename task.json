@@ -48,7 +48,7 @@
         "创建必要索引（status、category_id、created_at、FTS）",
         "编写 SQL migration 到 supabase/migrations/"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 5,

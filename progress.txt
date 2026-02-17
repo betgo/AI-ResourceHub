@@ -83,3 +83,19 @@
 
 ### Notes:
 - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+
+## 2026-02-17 - Task: 数据库 Schema 设计与迁移
+
+### What was done:
+- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
+- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
+- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
+- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
+- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
