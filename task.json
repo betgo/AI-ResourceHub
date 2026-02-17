@@ -60,7 +60,7 @@
         "创建 lib/supabase/middleware.ts",
         "接入 src/middleware.ts 完成会话刷新"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 6,

@@ -99,3 +99,18 @@
 
 ### Notes:
 - 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+
+## 2026-02-17 - Task: Supabase 客户端封装
+
+### What was done:
+- 新增 `resource-hub/src/lib/supabase/client.ts`，封装浏览器端 Supabase Client 创建逻辑。
+- 新增 `resource-hub/src/lib/supabase/server.ts`，封装服务端 Supabase Client，并接入 `next/headers` cookies 读写。
+- 新增 `resource-hub/src/lib/supabase/middleware.ts`，实现 `updateSession()`，通过 `supabase.auth.getUser()` 触发会话刷新。
+- 新增 `resource-hub/src/middleware.ts`，接入 `updateSession()` 并配置 matcher，跳过静态资源路径。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass（Next.js 提示 `middleware` 命名约定未来将迁移到 `proxy`，不影响当前构建）
+
+### Notes:
+- 当前实现遵循 Supabase SSR 推荐的 cookies 同步方式，可为后续认证与路由保护任务复用。
