@@ -1,0 +1,294 @@
+{
+  "project": "ResourceHub",
+  "description": "资源分享网站（上传、检索、收藏、下载、评论、审核）",
+  "tasks": [
+    {
+      "id": 1,
+      "title": "初始化 Next.js 项目",
+      "description": "创建 resource-hub 应用并完成基础工程配置",
+      "steps": [
+        "创建 Next.js 14+ TypeScript 项目到 resource-hub/",
+        "启用 App Router + src 目录结构",
+        "配置 ESLint + TypeScript strict",
+        "设置基础目录：src/app, src/components, src/lib, src/types"
+      ],
+      "passes": false
+    },
+    {
+      "id": 2,
+      "title": "基础依赖与 UI 框架",
+      "description": "安装项目核心依赖并建立 UI 基础",
+      "steps": [
+        "安装 tailwindcss, clsx, tailwind-merge",
+        "安装 supabase 客户端依赖",
+        "创建 lib/utils.ts 并实现 cn()",
+        "创建基础布局、全局样式和通用 Container 组件"
+      ],
+      "passes": false
+    },
+    {
+      "id": 3,
+      "title": "环境变量与配置模板",
+      "description": "建立环境变量模板和配置校验",
+      "steps": [
+        "创建 resource-hub/.env.local.example",
+        "定义 Supabase URL、Anon Key、Service Role Key、Storage Bucket",
+        "实现 lib/env.ts 统一读取和校验",
+        "补充 README 中环境变量说明"
+      ],
+      "passes": false
+    },
+    {
+      "id": 4,
+      "title": "数据库 Schema 设计与迁移",
+      "description": "创建资源分享核心数据表",
+      "steps": [
+        "创建 categories, tags, resources, resource_tags 表",
+        "创建 comments, favorites, downloads 表",
+        "创建必要索引（status、category_id、created_at、FTS）",
+        "编写 SQL migration 到 supabase/migrations/"
+      ],
+      "passes": false
+    },
+    {
+      "id": 5,
+      "title": "Supabase 客户端封装",
+      "description": "实现服务端和浏览器端 Supabase 客户端",
+      "steps": [
+        "创建 lib/supabase/server.ts",
+        "创建 lib/supabase/client.ts",
+        "创建 lib/supabase/middleware.ts",
+        "接入 src/middleware.ts 完成会话刷新"
+      ],
+      "passes": false
+    },
+    {
+      "id": 6,
+      "title": "认证模块",
+      "description": "实现登录、注册、登出和路由保护",
+      "steps": [
+        "创建 /login 和 /register 页面与表单",
+        "实现邮箱密码注册和登录",
+        "实现 LogoutButton 组件",
+        "middleware 保护 /submit /dashboard /admin 路由"
+      ],
+      "passes": false
+    },
+    {
+      "id": 7,
+      "title": "Storage 上传服务",
+      "description": "实现资源文件和封面上传能力",
+      "steps": [
+        "创建 /api/upload 路由",
+        "实现文件类型、大小、后缀白名单校验",
+        "将文件上传到 Supabase Storage",
+        "返回可访问 URL 和元信息"
+      ],
+      "passes": false
+    },
+    {
+      "id": 8,
+      "title": "分类与标签数据层",
+      "description": "实现分类和标签的数据访问逻辑",
+      "steps": [
+        "创建 lib/db/categories.ts",
+        "创建 lib/db/tags.ts",
+        "实现查询、创建、去重逻辑",
+        "补充 slug 生成工具"
+      ],
+      "passes": false
+    },
+    {
+      "id": 9,
+      "title": "资源数据层",
+      "description": "实现资源 CRUD 与查询能力",
+      "steps": [
+        "创建 lib/db/resources.ts",
+        "实现 createResource/getResourceById/updateResource/deleteResource",
+        "实现列表查询（分页、关键字、分类、标签、排序）",
+        "实现 pending/published/rejected 状态更新"
+      ],
+      "passes": false
+    },
+    {
+      "id": 10,
+      "title": "互动数据层",
+      "description": "实现收藏、评论、下载历史数据访问",
+      "steps": [
+        "创建 lib/db/comments.ts",
+        "创建 lib/db/favorites.ts",
+        "创建 lib/db/downloads.ts",
+        "实现计数回写（favorite_count、download_count）"
+      ],
+      "passes": false
+    },
+    {
+      "id": 11,
+      "title": "资源 API - 基础 CRUD",
+      "description": "实现资源列表和详情 API",
+      "steps": [
+        "创建 GET /api/resources",
+        "创建 POST /api/resources",
+        "创建 GET/PATCH/DELETE /api/resources/:id",
+        "统一 API 错误返回格式"
+      ],
+      "passes": false
+    },
+    {
+      "id": 12,
+      "title": "互动 API",
+      "description": "实现评论、收藏、下载记录 API",
+      "steps": [
+        "创建 GET/POST /api/resources/:id/comments",
+        "创建 POST /api/resources/:id/favorite",
+        "创建 POST /api/resources/:id/download",
+        "校验用户登录态和资源发布状态"
+      ],
+      "passes": false
+    },
+    {
+      "id": 13,
+      "title": "分类标签 API",
+      "description": "提供分类和标签查询接口",
+      "steps": [
+        "创建 GET /api/categories",
+        "创建 GET /api/tags",
+        "支持 keyword 查询标签",
+        "添加简单缓存策略"
+      ],
+      "passes": false
+    },
+    {
+      "id": 14,
+      "title": "审核 API",
+      "description": "管理员审核资源上架",
+      "steps": [
+        "创建 GET /api/admin/resources/pending",
+        "创建 POST /api/admin/resources/:id/review",
+        "支持 approve/reject + reason",
+        "严格校验 admin 权限"
+      ],
+      "passes": false
+    },
+    {
+      "id": 15,
+      "title": "首页 UI",
+      "description": "实现产品首页和导航",
+      "steps": [
+        "实现首页 Hero、热门分类、最新资源区块",
+        "创建全局 Header（登录态、发布入口）",
+        "添加 CTA：浏览资源、发布资源",
+        "支持移动端导航"
+      ],
+      "passes": false
+    },
+    {
+      "id": 16,
+      "title": "资源列表页 UI",
+      "description": "实现资源检索和筛选页面",
+      "steps": [
+        "创建 /resources 页面",
+        "实现关键字搜索、分类筛选、标签筛选",
+        "实现排序（最新、最热、最多下载）",
+        "实现分页和空状态"
+      ],
+      "passes": false
+    },
+    {
+      "id": 17,
+      "title": "资源详情页 UI",
+      "description": "实现详情展示与互动操作",
+      "steps": [
+        "创建 /resources/[id] 页面",
+        "展示标题、描述、标签、作者、封面",
+        "实现收藏按钮、下载按钮、评论列表",
+        "支持评论提交与错误提示"
+      ],
+      "passes": false
+    },
+    {
+      "id": 18,
+      "title": "发布页 UI",
+      "description": "实现资源发布表单",
+      "steps": [
+        "创建 /submit 页面",
+        "实现资源信息表单（title、description、category、tags）",
+        "实现文件和封面上传",
+        "提交后进入 pending 审核状态"
+      ],
+      "passes": false
+    },
+    {
+      "id": 19,
+      "title": "用户中心 UI",
+      "description": "实现用户侧管理页面",
+      "steps": [
+        "创建 /dashboard 页面",
+        "展示我的资源（按状态分组）",
+        "展示我的收藏和下载记录",
+        "支持资源编辑入口"
+      ],
+      "passes": false
+    },
+    {
+      "id": 20,
+      "title": "审核后台 UI",
+      "description": "实现管理员审核页面",
+      "steps": [
+        "创建 /admin/review 页面",
+        "展示待审核资源卡片",
+        "实现通过/拒绝操作及理由输入",
+        "审核后实时更新列表"
+      ],
+      "passes": false
+    },
+    {
+      "id": 21,
+      "title": "错误和加载态",
+      "description": "完善异常处理体验",
+      "steps": [
+        "创建 app/error.tsx 和 app/not-found.tsx",
+        "创建 app/loading.tsx",
+        "实现 Toast/Alert 统一错误反馈",
+        "列表和详情增加 Skeleton"
+      ],
+      "passes": false
+    },
+    {
+      "id": 22,
+      "title": "安全与校验",
+      "description": "补齐安全边界和输入校验",
+      "steps": [
+        "所有写接口增加 zod schema 校验",
+        "服务端校验 owner/admin 权限",
+        "上传接口增加 MIME 与大小限制",
+        "评论内容增加长度限制和基础清洗"
+      ],
+      "passes": false
+    },
+    {
+      "id": 23,
+      "title": "性能与 SEO 优化",
+      "description": "提升可访问性和加载性能",
+      "steps": [
+        "资源列表查询优化与索引确认",
+        "图片懒加载和尺寸优化",
+        "详情页 metadata 和 Open Graph",
+        "关键页面 Lighthouse 自检并修复主要问题"
+      ],
+      "passes": false
+    },
+    {
+      "id": 24,
+      "title": "最终联调与验收",
+      "description": "完成端到端流程验证",
+      "steps": [
+        "运行 npm run lint",
+        "运行 npm run build",
+        "验证完整流程：注册→发布→审核→浏览→收藏→评论→下载",
+        "更新文档和已知问题清单"
+      ],
+      "passes": false
+    }
+  ]
+}

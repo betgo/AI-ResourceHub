@@ -1,0 +1,38 @@
+# Progress Log
+
+## 2026-02-17 - Task: 项目方向迁移（Video → ResourceHub）
+
+### What was done:
+- 将项目定位从视频生成平台改为资源分享网站。
+- 重写 architecture.md，改为 ResourceHub 架构（资源发布、检索、评论、收藏、下载、审核）。
+- 重写 task.json，拆分为 24 个任务并全部标记为 `passes: false`。
+- 更新 AGENT.md 工作流，改为 Codex 驱动。
+- 更新 README.md，替换 Claude 使用说明为 Codex。
+- 更新 run-automation.sh，CLI 从 `claude` 切换到 `codex exec`。
+- 调整 init.sh，支持自动识别应用目录并兼容未初始化状态。
+
+### Testing:
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/init.sh`
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/run-automation.sh`
+- 运行 `python3 -m json.tool /Users/wxx/Desktop/code/auto-coding-agent-demo/task.json`
+
+### Notes:
+- 当前仓库尚未包含 `resource-hub/` 应用代码，后续任务会逐步创建。
+- 若未设置 `APP_DIR`，脚本会自动探测包含 `package.json` 的目录。
+
+---
+
+## Template for New Entries
+
+```text
+## [Date] - Task: [task title from task.json]
+
+### What was done:
+- [specific changes made]
+
+### Testing:
+- [commands and results]
+
+### Notes:
+- [risks, blockers, follow-up]
+```
