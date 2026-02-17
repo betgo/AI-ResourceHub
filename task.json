@@ -7,12 +7,12 @@
       "title": "初始化 Next.js 项目",
       "description": "创建 resource-hub 应用并完成基础工程配置",
       "steps": [
-        "创建 Next.js 14+ TypeScript 项目到 resource-hub/",
+        "创建 Next.js 15+ TypeScript 项目到 resource-hub/",
         "启用 App Router + src 目录结构",
         "配置 ESLint + TypeScript strict",
         "设置基础目录：src/app, src/components, src/lib, src/types"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 2,

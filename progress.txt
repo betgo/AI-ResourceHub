@@ -20,6 +20,21 @@
 - 当前仓库尚未包含 `resource-hub/` 应用代码，后续任务会逐步创建。
 - 若未设置 `APP_DIR`，脚本会自动探测包含 `package.json` 的目录。
 
+## 2026-02-17 - Task: 初始化 Next.js 项目
+
+### What was done:
+- 在 `resource-hub/` 初始化 Next.js + TypeScript 项目（App Router + `src` 目录）。
+- 确认 TypeScript `strict` 已启用，ESLint 使用 `eslint-config-next`（含 TypeScript 规则）。
+- 创建基础目录并纳入版本管理：`src/components`、`src/lib`、`src/types`。
+- 调整 `src/app/layout.tsx`，移除 `next/font/google` 远程字体依赖，避免构建阶段网络阻塞。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 初次执行 `./init.sh` 时依赖安装未完成，后续通过联网安装补齐依赖后完成验证。
+
 ---
 
 ## Template for New Entries
