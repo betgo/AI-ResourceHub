@@ -36,7 +36,7 @@
         "实现 lib/env.ts 统一读取和校验",
         "补充 README 中环境变量说明"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 4,

@@ -68,3 +68,18 @@
 
 ### Notes:
 - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
+
+## 2026-02-17 - Task: 环境变量与配置模板
+
+### What was done:
+- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
+- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
+- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
+- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
