@@ -51,3 +51,20 @@
 ### Notes:
 - [risks, blockers, follow-up]
 ```
+
+## 2026-02-17 - Task: 基础依赖与 UI 框架
+
+### What was done:
+- 在 `resource-hub/` 安装核心依赖：`tailwindcss`、`clsx`、`tailwind-merge`、`@supabase/supabase-js`、`@supabase/ssr`，并补充 `@tailwindcss/postcss`。
+- 新增 `resource-hub/postcss.config.mjs`，启用 Tailwind 的 PostCSS 插件。
+- 新增 `resource-hub/src/lib/utils.ts` 并实现 `cn()`，统一处理 className 合并。
+- 新增通用容器组件 `resource-hub/src/components/layout/container.tsx`。
+- 重构 `resource-hub/src/app/layout.tsx`、`resource-hub/src/app/globals.css`、`resource-hub/src/app/page.tsx`，完成基础布局与全局样式初始化；移除默认模板样式文件 `resource-hub/src/app/page.module.css`。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+- 使用 Playwright 访问 `http://localhost:3001` 并检查首页结构与关键文案: pass
+
+### Notes:
+- 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。

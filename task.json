@@ -24,7 +24,7 @@
         "创建 lib/utils.ts 并实现 cn()",
         "创建基础布局、全局样式和通用 Container 组件"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 3,
