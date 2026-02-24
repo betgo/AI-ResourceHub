@@ -177,3 +177,19 @@
 
 ### Notes:
 - 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。
+
+## 2026-02-24 - Task: 互动数据层
+
+### What was done:
+- 新增 `resource-hub/src/lib/db/comments.ts`，实现评论查询、分页列表、创建、更新、删除等数据访问能力。
+- 新增 `resource-hub/src/lib/db/favorites.ts`，实现收藏状态查询、增删切换、用户收藏列表，并补充资源 `favorite_count` 计数回写。
+- 新增 `resource-hub/src/lib/db/downloads.ts`，实现下载记录创建、按用户/资源分页查询，并补充资源 `download_count` 计数回写。
+- 三个模块统一了输入归一化、分页参数处理与错误包装，保持与现有数据层风格一致。
+
+### Testing:
+- 运行 `npx eslint src/lib/db/comments.ts src/lib/db/favorites.ts src/lib/db/downloads.ts`（in `resource-hub/`）: pass
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。

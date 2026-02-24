@@ -120,7 +120,7 @@
         "创建 lib/db/downloads.ts",
         "实现计数回写（favorite_count、download_count）"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 11,
