@@ -162,3 +162,18 @@
 
 ### Notes:
 - 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。
+
+## 2026-02-24 - Task: 资源数据层
+
+### What was done:
+- 新增 `resource-hub/src/lib/db/resources.ts`，实现资源数据层核心能力。
+- 实现 `createResource/getResourceById/updateResource/deleteResource`，支持资源基础 CRUD。
+- 实现 `listResources`，支持分页、关键字检索（FTS）、分类过滤、标签过滤和排序（最新/最热/最多下载）。
+- 实现 `updateResourceStatus`，支持 `pending/published/rejected` 状态切换，并自动维护 `published_at/rejected_at/review_reason` 字段。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。

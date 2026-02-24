@@ -108,7 +108,7 @@
         "实现列表查询（分页、关键字、分类、标签、排序）",
         "实现 pending/published/rejected 状态更新"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 10,
