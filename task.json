@@ -84,7 +84,7 @@
         "将文件上传到 Supabase Storage",
         "返回可访问 URL 和元信息"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 8,

@@ -130,3 +130,20 @@
 
 ### Notes:
 - 构建与开发阶段仍有 Next.js `middleware` 命名弃用提示（建议后续迁移到 `proxy`）。
+
+## 2026-02-24 - Task: Storage 上传服务
+
+### What was done:
+- 新增 `resource-hub/src/app/api/upload/route.ts`，实现 `POST /api/upload` 上传接口。
+- 接口接入 Supabase 登录态校验，未登录请求会返回 `401`。
+- 增加上传规则：按 `kind` 区分 `resource` 与 `cover`，分别校验文件大小上限、扩展名白名单与 MIME 白名单。
+- 通过 Service Role 客户端上传文件到 Supabase Storage，并按 `userId/kind/timestamp` 组织路径。
+- 上传成功后返回可访问 URL（优先 signed URL）和文件元信息（bucket/path/type/size 等）。
+- 新增 `resource-hub/src/lib/supabase/admin.ts`，统一封装服务端 Admin Client 创建逻辑。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 仍存在 Next.js `middleware` 命名弃用提示（建议后续迁移到 `proxy`），不影响本任务交付。
