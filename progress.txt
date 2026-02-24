@@ -225,3 +225,18 @@
 ### Notes:
 - 当前 `download` 接口要求登录用户触发下载记录；后续如需支持匿名下载，可在该路由扩展 `ip_hash` 逻辑。
 - 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。
+
+## 2026-02-24 - Task: 分类标签 API
+
+### What was done:
+- 新增 `resource-hub/src/app/api/categories/route.ts`，实现 `GET /api/categories`，返回分类列表并统一错误响应格式。
+- 新增 `resource-hub/src/app/api/tags/route.ts`，实现 `GET /api/tags`，支持 `keyword` 关键词查询和 `limit` 条数参数。
+- 在分类与标签查询 API 中接入 `next/cache` 的 `unstable_cache`，提供 60 秒的轻量缓存策略，减少重复读查询。
+- 标签接口补充 `limit` 参数校验，非法值统一返回 `400 INVALID_LIMIT`。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。

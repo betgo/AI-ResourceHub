@@ -156,7 +156,7 @@
         "支持 keyword 查询标签",
         "添加简单缓存策略"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 14,
