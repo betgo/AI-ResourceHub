@@ -72,6 +72,49 @@ find_app_dir() {
     return 1
 }
 
+run_with_timeout() {
+    local timeout_seconds=$1
+    shift
+
+    if command -v timeout > /dev/null 2>&1; then
+        timeout --preserve-status "$timeout_seconds" "$@"
+        return $?
+    fi
+
+    if command -v gtimeout > /dev/null 2>&1; then
+        gtimeout --preserve-status "$timeout_seconds" "$@"
+        return $?
+    fi
+
+    if command -v python3 > /dev/null 2>&1; then
+        python3 -c '
+import os
+import signal
+import subprocess
+import sys
+
+timeout = int(sys.argv[1])
+cmd = sys.argv[2:]
+
+proc = subprocess.Popen(cmd, start_new_session=True)
+try:
+    proc.wait(timeout=timeout)
+    sys.exit(proc.returncode)
+except subprocess.TimeoutExpired:
+    os.killpg(proc.pid, signal.SIGTERM)
+    try:
+        proc.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        os.killpg(proc.pid, signal.SIGKILL)
+        proc.wait()
+    sys.exit(124)
+' "$timeout_seconds" "$@"
+        return $?
+    fi
+
+    "$@"
+}
+
 if [ -z "${1:-}" ]; then
     echo "Usage: $0 <number_of_runs>"
     echo "Example: $0 5"
@@ -94,6 +137,20 @@ if ! command -v codex > /dev/null 2>&1; then
 fi
 
 TOTAL_RUNS=$1
+RUN_TIMEOUT_SECONDS="${CODEX_RUN_TIMEOUT_SECONDS:-900}"
+RUN_MAX_RETRIES="${CODEX_RUN_MAX_RETRIES:-1}"
+RUN_TOTAL_ATTEMPTS=$((RUN_MAX_RETRIES + 1))
+
+if ! [[ "$RUN_TIMEOUT_SECONDS" =~ ^[0-9]+$ ]] || [ "$RUN_TIMEOUT_SECONDS" -le 0 ]; then
+    echo "Error: CODEX_RUN_TIMEOUT_SECONDS must be a positive integer"
+    exit 1
+fi
+
+if ! [[ "$RUN_MAX_RETRIES" =~ ^[0-9]+$ ]]; then
+    echo "Error: CODEX_RUN_MAX_RETRIES must be a non-negative integer"
+    exit 1
+fi
+
 APP_PATH=""
 if APP_PATH=$(find_app_dir); then
     log "INFO" "Detected app directory: $APP_PATH"
@@ -109,6 +166,8 @@ echo ""
 
 log "INFO" "Starting automation with $TOTAL_RUNS runs"
 log "INFO" "Log file: $LOG_FILE"
+log "INFO" "Per-run timeout: ${RUN_TIMEOUT_SECONDS}s"
+log "INFO" "Retries on failure/timeout: $RUN_MAX_RETRIES"
 
 if [ ! -f "task.json" ]; then
     log "ERROR" "task.json not found! Please run this script from the project root."
@@ -154,10 +213,38 @@ Start by reading task.json to find your task.
 Please complete only one task in this session, and stop once done or blocked.
 PROMPT_EOF
 
-    set +e
-    codex exec --dangerously-bypass-approvals-and-sandbox < "$PROMPT_FILE" 2>&1 | tee "$RUN_LOG"
-    EXIT_CODE=${PIPESTATUS[0]}
-    set -e
+    : > "$RUN_LOG"
+    ATTEMPT=1
+    EXIT_CODE=1
+    while [ "$ATTEMPT" -le "$RUN_TOTAL_ATTEMPTS" ]; do
+        if [ "$ATTEMPT" -gt 1 ]; then
+            log "WARNING" "Retrying run $run (attempt $ATTEMPT/$RUN_TOTAL_ATTEMPTS)..."
+            sleep 2
+        fi
+
+        ATTEMPT_START=$(date '+%Y-%m-%d %H:%M:%S')
+        echo "===== Attempt $ATTEMPT/$RUN_TOTAL_ATTEMPTS started at $ATTEMPT_START =====" | tee -a "$RUN_LOG"
+
+        set +e
+        run_with_timeout "$RUN_TIMEOUT_SECONDS" codex exec --dangerously-bypass-approvals-and-sandbox < "$PROMPT_FILE" 2>&1 | tee -a "$RUN_LOG"
+        EXIT_CODE=${PIPESTATUS[0]}
+        set -e
+
+        ATTEMPT_END=$(date '+%Y-%m-%d %H:%M:%S')
+        echo "===== Attempt $ATTEMPT/$RUN_TOTAL_ATTEMPTS finished at $ATTEMPT_END with exit code $EXIT_CODE =====" | tee -a "$RUN_LOG"
+
+        if [ "$EXIT_CODE" -eq 0 ]; then
+            break
+        fi
+
+        if [ "$EXIT_CODE" -eq 124 ]; then
+            log "WARNING" "Run $run attempt $ATTEMPT timed out after ${RUN_TIMEOUT_SECONDS}s"
+        else
+            log "WARNING" "Run $run attempt $ATTEMPT failed with exit code $EXIT_CODE"
+        fi
+
+        ATTEMPT=$((ATTEMPT + 1))
+    done
 
     RUN_END=$(date +%s)
     RUN_DURATION=$((RUN_END - RUN_START))

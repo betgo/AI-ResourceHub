@@ -1,0 +1,5466 @@
+Reading prompt from stdin...
+OpenAI Codex v0.101.0 (research preview)
+--------
+workdir: /Users/wxx/Desktop/code/auto-coding-agent-demo
+model: gpt-5.3-codex
+provider: custom
+approval: never
+sandbox: danger-full-access
+reasoning effort: high
+reasoning summaries: auto
+session id: 019c6afa-e22e-7762-9275-c77a8608c96b
+--------
+user
+Please follow the workflow in AGENT.md:
+1. Read task.json and select the next task with passes: false
+2. Implement the task following all listed steps
+3. Test thoroughly (run npm run lint and npm run build in resource-hub/ when available)
+4. Update progress.txt with your work
+5. Update task.json only when all checks pass
+6. Commit all related changes in a single commit
+
+Start by reading task.json to find your task.
+Please complete only one task in this session, and stop once done or blocked.
+
+mcp: figma starting
+mcp: chrome-devtools starting
+mcp: playwright starting
+mcp: linear starting
+2026-02-17T09:42:34.217445Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c691c-8393-7542-be9f-0f404e2fd080
+2026-02-17T09:42:34.240459Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c5bfe-4076-75d2-8392-835d9b0b346f
+2026-02-17T09:42:34.267584Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6a78-3388-7a71-864f-e606f93f4b62
+2026-02-17T09:42:34.295849Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6a6b-bfd3-7b23-9270-fde090249373
+2026-02-17T09:42:34.319733Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c5ecf-c973-7960-bdec-3e253071c815
+2026-02-17T09:42:34.347507Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6404-5c49-7d50-a5a3-e324e549af6c
+2026-02-17T09:42:34.374317Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6a9a-28c1-7170-8735-1c61b6870d08
+2026-02-17T09:42:34.397083Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c69be-7bf2-73f2-bf79-0d60f4070c42
+2026-02-17T09:42:34.421045Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c5c11-9035-7ef1-9562-d592e20c66c0
+2026-02-17T09:42:34.442700Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6ab3-55c8-7f93-973f-0027006a2096
+2026-02-17T09:42:34.467533Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6a41-dd8f-7d30-b67f-36c104603a8a
+2026-02-17T09:42:34.882006Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer realm=\"OAuth\", error=\"invalid_token\", error_description=\"Missing or invalid access token\"" })
+mcp: linear failed: The linear MCP server is not logged in. Run `codex mcp login linear`.
+mcp: chrome-devtools ready
+mcp: figma ready
+mcp: playwright ready
+mcp startup: ready: chrome-devtools, figma, playwright; failed: linear
+exec
+/bin/zsh -lc 'ls -la' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+total 128
+drwxr-xr-x@ 16 wxx  staff   512 Feb 17 17:33 .
+drwxr-xr-x@  7 wxx  staff   224 Feb 17 15:54 ..
+-rw-r--r--@  1 wxx  staff  6148 Feb 17 16:13 .DS_Store
+-rw-r--r--@  1 wxx  staff     6 Feb 17 17:33 .dev-server.pid
+drwxr-xr-x@ 14 wxx  staff   448 Feb 17 17:42 .git
+-rw-r--r--@  1 wxx  staff   206 Feb 17 15:54 .gitignore
+-rw-r--r--@  1 wxx  staff  3092 Feb 17 16:03 AGENT.md
+-rw-r--r--@  1 wxx  staff   441 Feb 17 16:08 AGENTS.md
+-rw-r--r--@  1 wxx  staff  1939 Feb 17 16:02 README.md
+-rw-r--r--@  1 wxx  staff  5555 Feb 17 16:31 architecture.md
+drwxr-xr-x@  9 wxx  staff   288 Feb 17 17:42 automation-logs
+-rwxr-xr-x@  1 wxx  staff  2228 Feb 17 16:07 init.sh
+-rw-r--r--@  1 wxx  staff  3075 Feb 17 17:40 progress.txt
+drwxr-xr-x@ 15 wxx  staff   480 Feb 17 17:36 resource-hub
+-rwxr-xr-x@  1 wxx  staff  5953 Feb 17 16:07 run-automation.sh
+-rw-r--r--@  1 wxx  staff  9027 Feb 17 17:41 task.json
+
+thinking
+**Running initialization script**
+exec
+/bin/zsh -lc ./init.sh in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 3.60s:
+
+up to date in 526ms
+
+178 packages are looking for funding
+  run `npm fund` for details
+Starting development server...
+[0;32mInitialization complete.[0m
+[0;32mDev server should be available at http://localhost:3000[0m
+PID: 39280
+Log: automation-logs/dev-server.log
+exec
+/bin/zsh -lc 'cat AGENT.md' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+# ResourceHub - Project Instructions (Codex)
+
+## Project Context
+
+Build a production-oriented `Resource Sharing Website` with Next.js full-stack architecture.
+
+Primary goals:
+- User can upload and publish resources.
+- Visitors can search, filter, preview, favorite, and download resources.
+- Admin can review and moderate pending resources.
+
+---
+
+## MANDATORY: Agent Workflow
+
+Every new Codex session MUST follow this workflow.
+
+### Step 1: Initialize Environment
+
+```bash
+
+thinking
+**Inspecting task.json for next pass**
+exec
+/bin/zsh -lc 'cat task.json' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+{
+  "project": "ResourceHub",
+  "description": "资源分享网站（上传、检索、收藏、下载、评论、审核）",
+  "tasks": [
+    {
+      "id": 1,
+      "title": "初始化 Next.js 项目",
+      "description": "创建 resource-hub 应用并完成基础工程配置",
+      "steps": [
+        "创建 Next.js 15+ TypeScript 项目到 resource-hub/",
+        "启用 App Router + src 目录结构",
+        "配置 ESLint + TypeScript strict",
+        "设置基础目录：src/app, src/components, src/lib, src/types"
+      ],
+      "passes": true
+    },
+    {
+      "id": 2,
+      "title": "基础依赖与 UI 框架",
+      "description": "安装项目核心依赖并建立 UI 基础",
+
+thinking
+**Inspecting project structure**
+exec
+/bin/zsh -lc 'find resource-hub -maxdepth 3 -type f | sort' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+Total output lines: 2160
+
+resource-hub/.gitignore
+resource-hub/.next/BUILD_ID
+resource-hub/.next/app-path-routes-manifest.json
+resource-hub/.next/build-manifest.json
+resource-hub/.next/build/package.json
+resource-hub/.next/build/postcss.js
+resource-hub/.next/build/postcss.js.map
+resource-hub/.next/cache/.previewinfo
+resource-hub/.next/cache/.rscinfo
+resource-hub/.next/cache/.tsbuildinfo
+resource-hub/.next/dev/build-manifest.json
+resource-hub/.next/dev/fallback-build-manifest.json
+resource-hub/.next/dev/lock
+resource-hub/.next/dev/package.json
+resource-hub/.next/dev/prerender-manifest.json
+resource-hub/.next/dev/routes-manifest.json
+resource-hub/.next/dev/trace
+resource-hub/.next/diagnostics/build-diagnostics.json
+
+thinking
+**Inspecting environment and config files**
+exec
+/bin/zsh -lc 'ls -la resource-hub' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+total 528
+drwxr-xr-x@  15 wxx  staff     480 Feb 17 17:36 .
+drwxr-xr-x@  16 wxx  staff     512 Feb 17 17:43 ..
+-rw-r--r--@   1 wxx  staff     480 Feb 17 16:37 .gitignore
+drwxr-xr-x@  25 wxx  staff     800 Feb 17 17:38 .next
+-rw-r--r--@   1 wxx  staff    1450 Feb 17 16:37 README.md
+-rw-r--r--@   1 wxx  staff     465 Feb 17 16:37 eslint.config.mjs
+-rw-r--r--@   1 wxx  staff     251 Feb 17 17:39 next-env.d.ts
+-rw-r--r--@   1 wxx  staff     133 Feb 17 16:37 next.config.ts
+drwxr-xr-x@ 298 wxx  staff    9536 Feb 17 17:35 node_modules
+-rw-r--r--@   1 wxx  staff  235309 Feb 17 17:43 package-lock.json
+-rw-r--r--@   1 wxx  staff     669 Feb 17 17:35 package.json
+-rw-r--r--@   1 wxx  staff      94 Feb 17 17:36 postcss.config.mjs
+drwxr-xr-x@   7 wxx  staff     224 Feb 17 16:37 public
+drwxr-xr-x@   6 wxx  staff     192 Feb 17 16:43 src
+-rw-r--r--@   1 wxx  staff     670 Feb 17 16:37 tsconfig.json
+
+thinking
+**Inspecting README and env files**
+exec
+/bin/zsh -lc 'cat resource-hub/README.md' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 50ms:
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+
+thinking
+**Inspecting root README**
+exec
+/bin/zsh -lc 'cat README.md' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+# 全自动编程 Agent 模板（Codex 版）
+
+## 免责声明
+
+本项目主要用于自动化开发流程实验。请在运行前自行审查脚本和生成代码，任何后果自行承担。
+
+## 项目定位
+
+这是一个用于驱动 **Codex** 长时自动开发的模板仓库，目标项目为：
+
+- 产品类型：`Resource Sharing Website`
+- 核心场景：资源上传、分类检索、收藏下载、评论互动、后台审核
+- 技术方向：Next.js 全栈 + PostgreSQL + Object Storage
+
+你可以把它当成“自动化开发脚手架”：`architecture.md` 定义架构，`task.json` 拆解任务，`run-automation.sh` 循环驱动 Codex 执行任务。
+
+## 核心文件
+
+- `AGENT.md`：Codex 工作流与约束
+- `architecture.md`：资源分享网站架构设计
+exec
+/bin/zsh -lc 'cat resource-hub/package.json' in /Users/wxx/Desktop/code/auto-coding-agent-demoexec
+/bin/zsh -lc 'cat resource-hub/tsconfig.json' in /Users/wxx/Desktop/code/auto-coding-agent-demoexec
+/bin/zsh -lc 'cat progress.txt' in /Users/wxx/Desktop/code/auto-coding-agent-demoexec
+/bin/zsh -lc 'find resource-hub/src -maxdepth 3 -type f | sort' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+{
+  "name": "resource-hub",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.95.3",
+    "@tailwindcss/postcss": "^4.1.18",
+    "clsx": "^2.1.1",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwind-merge": "^3.4.1",
+    "tailwindcss": "^4.1.18"
+ succeeded in 52ms:
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+ succeeded in 50ms:
+# Progress Log
+
+## 2026-02-17 - Task: 项目方向迁移（Video → ResourceHub）
+
+### What was done:
+- 将项目定位从视频生成平台改为资源分享网站。
+- 重写 architecture.md，改为 ResourceHub 架构（资源发布、检索、评论、收藏、下载、审核）。
+- 重写 task.json，拆分为 24 个任务并全部标记为 `passes: false`。
+- 更新 AGENT.md 工作流，改为 Codex 驱动。
+- 更新 README.md，替换 Claude 使用说明为 Codex。
+- 更新 run-automation.sh，CLI 从 `claude` 切换到 `codex exec`。
+- 调整 init.sh，支持自动识别应用目录并兼容未初始化状态。
+
+### Testing:
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/init.sh`
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/run-automation.sh`
+- 运行 `python3 -m json.tool /Users/wxx/Desktop/code/auto-coding-agent-demo/task.json`
+
+### Notes:
+- 当前仓库尚未包含 `resource-hub/` 应用代码，后续任务会逐步创建。
+ succeeded in 50ms:
+resource-hub/src/app/favicon.ico
+resource-hub/src/app/globals.css
+resource-hub/src/app/layout.tsx
+resource-hub/src/app/page.tsx
+resource-hub/src/components/.gitkeep
+resource-hub/src/components/layout/container.tsx
+resource-hub/src/lib/.gitkeep
+resource-hub/src/lib/utils.ts
+resource-hub/src/types/.gitkeep
+
+thinking
+**Reviewing layout and environment files**
+exec
+/bin/zsh -lc 'cat resource-hub/src/app/page.tsx' in /Users/wxx/Desktop/code/auto-coding-agent-demoexec
+/bin/zsh -lc 'cat resource-hub/src/app/layout.tsx' in /Users/wxx/Desktop/code/auto-coding-agent-demoexec
+/bin/zsh -lc 'cat resource-hub/src/app/globals.css' in /Users/wxx/Desktop/code/auto-coding-agent-demoexec
+/bin/zsh -lc 'cat resource-hub/src/lib/utils.ts' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+ succeeded in 51ms:
+import type { Metadata } from "next";
+
+import { Container } from "@/components/layout/container";
+import { cn } from "@/lib/utils";
+
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: {
+    default: "ResourceHub",
+    template: "%s | ResourceHub",
+  },
+  description: "Discover and publish high-quality digital resources.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+ succeeded in 51ms:
+@import "tailwindcss";
+
+:root {
+  --surface: #f2f4f8;
+  --surface-elevated: #ffffff;
+  --stroke-soft: rgba(15, 23, 42, 0.12);
+  --text-primary: #0f172a;
+  --text-muted: #475569;
+  --brand: #1d4ed8;
+  --brand-soft: #dbeafe;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+ succeeded in 51ms:
+import Link from "next/link";
+
+import { Container } from "@/components/layout/container";
+
+const quickActions = [
+  {
+    title: "Browse Resources",
+    description: "Explore curated templates, datasets, and dev assets.",
+    href: "/resources",
+  },
+  {
+    title: "Publish Resource",
+    description: "Upload your file, add metadata, and submit for review.",
+    href: "/submit",
+  },
+  {
+    title: "Open Dashboard",
+    description: "Track your uploads, favorites, and download history.",
+    href: "/dashboard",
+  },
+
+thinking
+**Planning environment validation**
+exec
+/bin/zsh -lc 'git status --short' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+ M architecture.md
+?? .dev-server.pid
+?? automation-logs/automation-20260217_173222.log
+?? automation-logs/dev-server-task2.log
+?? automation-logs/dev-server.log
+?? automation-logs/run-1-20260217_173222.log
+?? automation-logs/run-2-20260217_174232.log
+
+thinking
+**Designing unified env module**
+exec
+/bin/zsh -lc 'cat resource-hub/.gitignore' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+
+thinking
+**Planning .env example tracking**
+Plan update
+  ✓ 审查现有配置与文档，确认任务3缺口
+  → 实现环境变量模板与统一校验模块
+  • 更新 README、运行 lint/build 验证
+  • 更新 progress/task 状态并提交一次 commit
+
+thinking
+**Implementing typed env module**
+file update
+M /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub/.gitignore
+@@ -34,2 +34,3 @@
+ .env*
++!.env.local.example
+ 
+apply_patch(auto_approved=true) exited 0 in 31ms:
+Success. Updated the following files:
+M resource-hub/.gitignore
+file update:
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+
+file update:
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+
+
+thinking
+**Adding environment files and updating README**
+file update
+A /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub/.env.local.example
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+SUPABASE_STORAGE_BUCKET=resource-hub-files
+apply_patch(auto_approved=true) exited 0 in 56ms:
+Success. Updated the following files:
+A resource-hub/.env.local.example
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+
+
+thinking
+**Adding environment configuration**
+file update
+A /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub/src/lib/env.ts
+const PUBLIC_ENV_KEYS = [
+  "NEXT_PUBLIC_SUPABASE_URL",
+  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+] as const;
+
+const SERVER_ENV_KEYS = [
+  "SUPABASE_SERVICE_ROLE_KEY",
+  "SUPABASE_STORAGE_BUCKET",
+] as const;
+
+type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
+type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
+type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
+
+function readRequiredEnv(key: RequiredEnvKey): string {
+  const value = process.env[key];
+
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+
+  return value;
+}
+
+export const publicEnv = Object.freeze({
+  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
+});
+
+const serverEnv =
+  typeof window === "undefined"
+    ? Object.freeze({
+        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv("SUPABASE_SERVICE_ROLE_KEY"),
+        SUPABASE_STORAGE_BUCKET: readRequiredEnv("SUPABASE_STORAGE_BUCKET"),
+      })
+    : null;
+
+export function getServerEnv() {
+  if (!serverEnv) {
+    throw new Error("getServerEnv() can only be called on the server.");
+  }
+
+  return serverEnv;
+}
+
+export const env = Object.freeze({
+  ...publicEnv,
+  ...(serverEnv ?? {}),
+});
+apply_patch(auto_approved=true) exited 0 in 63ms:
+Success. Updated the following files:
+A resource-hub/src/lib/env.ts
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..1cbb5b612c58f7aa48bc655f271d7257a36ceb14
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,49 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++export const publicEnv = Object.freeze({
++  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
++  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
++});
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze({
++        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv("SUPABASE_SERVICE_ROLE_KEY"),
++        SUPABASE_STORAGE_BUCKET: readRequiredEnv("SUPABASE_STORAGE_BUCKET"),
++      })
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..1cbb5b612c58f7aa48bc655f271d7257a36ceb14
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,49 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++export const publicEnv = Object.freeze({
++  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
++  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
++});
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze({
++        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv("SUPABASE_SERVICE_ROLE_KEY"),
++        SUPABASE_STORAGE_BUCKET: readRequiredEnv("SUPABASE_STORAGE_BUCKET"),
++      })
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+
+thinking
+**Planning README replacement**
+file update
+D /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub/README.md
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+apply_patch(auto_approved=true) exited 0 in 32ms:
+Success. Updated the following files:
+D resource-hub/README.md
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+deleted file mode 100644
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..0000000000000000000000000000000000000000
+--- a/resource-hub/README.md
++++ /dev/null
+@@ -1,36 +0,0 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+-
+-## Getting Started
+-
+-First, run the development server:
+-
+-```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
+-```
+-
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-
+-## Learn More
+-
+-To learn more about Next.js, take a look at the following resources:
+-
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+-
+-## Deploy on Vercel
+-
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..1cbb5b612c58f7aa48bc655f271d7257a36ceb14
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,49 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++export const publicEnv = Object.freeze({
++  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
++  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
++});
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze({
++        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv("SUPABASE_SERVICE_ROLE_KEY"),
++        SUPABASE_STORAGE_BUCKET: readRequiredEnv("SUPABASE_STORAGE_BUCKET"),
++      })
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+deleted file mode 100644
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..0000000000000000000000000000000000000000
+--- a/resource-hub/README.md
++++ /dev/null
+@@ -1,36 +0,0 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+-
+-## Getting Started
+-
+-First, run the development server:
+-
+-```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
+-```
+-
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-
+-## Learn More
+-
+-To learn more about Next.js, take a look at the following resources:
+-
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+-
+-## Deploy on Vercel
+-
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..1cbb5b612c58f7aa48bc655f271d7257a36ceb14
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,49 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++export const publicEnv = Object.freeze({
++  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
++  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
++});
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze({
++        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv("SUPABASE_SERVICE_ROLE_KEY"),
++        SUPABASE_STORAGE_BUCKET: readRequiredEnv("SUPABASE_STORAGE_BUCKET"),
++      })
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+file update
+A /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub/README.md
+# ResourceHub
+
+ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+
+## Getting Started
+
+1. Copy the environment template:
+
+```bash
+cp .env.local.example .env.local
+```
+
+2. Fill in all Supabase values in `.env.local`:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_STORAGE_BUCKET`
+
+3. Install dependencies and start development:
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000` in your browser.
+
+## Environment Validation
+
+`src/lib/env.ts` provides centralized environment loading and validation:
+
+- `publicEnv` for browser-safe Supabase variables.
+- `getServerEnv()` for server-only secrets.
+- `env` for shared server runtime access.
+
+If any required variable is missing, the app throws an error at startup/runtime.
+
+## Scripts
+
+```bash
+npm run dev
+npm run lint
+npm run build
+```
+apply_patch(auto_approved=true) exited 0 in 62ms:
+Success. Updated the following files:
+A resource-hub/README.md
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..1cbb5b612c58f7aa48bc655f271d7257a36ceb14
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,49 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++export const publicEnv = Object.freeze({
++  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
++  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
++});
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze({
++        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv("SUPABASE_SERVICE_ROLE_KEY"),
++        SUPABASE_STORAGE_BUCKET: readRequiredEnv("SUPABASE_STORAGE_BUCKET"),
++      })
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..1cbb5b612c58f7aa48bc655f271d7257a36ceb14
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,49 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++export const publicEnv = Object.freeze({
++  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
++  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
++});
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze({
++        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv("SUPABASE_SERVICE_ROLE_KEY"),
++        SUPABASE_STORAGE_BUCKET: readRequiredEnv("SUPABASE_STORAGE_BUCKET"),
++      })
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+
+thinking
+**Verifying build environment assumptions**
+exec
+/bin/zsh -lc 'npm run lint' in /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub succeeded in 1.66s:
+
+> resource-hub@0.1.0 lint
+> eslint
+
+
+/Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub/src/lib/env.ts
+  1:7  warning  'PUBLIC_ENV_KEYS' is assigned a value but only used as a type  @typescript-eslint/no-unused-vars
+  6:7  warning  'SERVER_ENV_KEYS' is assigned a value but only used as a type  @typescript-eslint/no-unused-vars
+
+✖ 2 problems (0 errors, 2 warnings)
+
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..1cbb5b612c58f7aa48bc655f271d7257a36ceb14
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,49 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++export const publicEnv = Object.freeze({
++  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
++  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
++});
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze({
++        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv("SUPABASE_SERVICE_ROLE_KEY"),
++        SUPABASE_STORAGE_BUCKET: readRequiredEnv("SUPABASE_STORAGE_BUCKET"),
++      })
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+
+thinking
+**Refactoring env validation and typing**
+file update
+M /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub/src/lib/env.ts
+@@ -24,6 +24,15 @@
+ 
+-export const publicEnv = Object.freeze({
+-  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
+-  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
+-});
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
+ 
+@@ -31,6 +40,3 @@
+   typeof window === "undefined"
+-    ? Object.freeze({
+-        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv("SUPABASE_SERVICE_ROLE_KEY"),
+-        SUPABASE_STORAGE_BUCKET: readRequiredEnv("SUPABASE_STORAGE_BUCKET"),
+-      })
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
+     : null;
+apply_patch(auto_approved=true) exited 0 in 66ms:
+Success. Updated the following files:
+M resource-hub/src/lib/env.ts
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+
+thinking
+**Checking lint preferences**
+exec
+/bin/zsh -lc 'npm run lint' in /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub succeeded in 1.42s:
+
+> resource-hub@0.1.0 lint
+> eslint
+
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+
+thinking
+**Building project**
+exec
+/bin/zsh -lc 'npm run build' in /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub succeeded in 4.13s:
+
+> resource-hub@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1012.6ms
+  Running TypeScript ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/4) ...
+  Generating static pages using 9 workers (1/4) 
+  Generating static pages using 9 workers (2/4) 
+  Generating static pages using 9 workers (3/4) 
+✓ Generating static pages using 9 workers (4/4) in 141.1ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+
+thinking
+**Preparing progress and task updates**
+exec
+/bin/zsh -lc 'tail -n 80 progress.txt' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 50ms:
+# Progress Log
+
+## 2026-02-17 - Task: 项目方向迁移（Video → ResourceHub）
+
+### What was done:
+- 将项目定位从视频生成平台改为资源分享网站。
+- 重写 architecture.md，改为 ResourceHub 架构（资源发布、检索、评论、收藏、下载、审核）。
+- 重写 task.json，拆分为 24 个任务并全部标记为 `passes: false`。
+- 更新 AGENT.md 工作流，改为 Codex 驱动。
+- 更新 README.md，替换 Claude 使用说明为 Codex。
+- 更新 run-automation.sh，CLI 从 `claude` 切换到 `codex exec`。
+- 调整 init.sh，支持自动识别应用目录并兼容未初始化状态。
+
+### Testing:
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/init.sh`
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/run-automation.sh`
+- 运行 `python3 -m json.tool /Users/wxx/Desktop/code/auto-coding-agent-demo/task.json`
+
+### Notes:
+- 当前仓库尚未包含 `resource-hub/` 应用代码，后续任务会逐步创建。
+file update:
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+
+thinking
+**Deciding append position**
+file update
+M /Users/wxx/Desktop/code/auto-coding-agent-demo/progress.txt
+@@ -70 +70,16 @@
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+apply_patch(auto_approved=true) exited 0 in 68ms:
+Success. Updated the following files:
+M progress.txt
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+
+
+thinking
+**Applying patch to task.json**
+file update
+M /Users/wxx/Desktop/code/auto-coding-agent-demo/task.json
+@@ -38,3 +38,3 @@
+       ],
+-      "passes": false
++      "passes": true
+     },
+apply_patch(auto_approved=true) exited 0 in 66ms:
+Success. Updated the following files:
+M task.json
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Considering JSON validation step**
+exec
+/bin/zsh -lc 'python3 -m json.tool task.json >/dev/null' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Checking git status**
+exec
+/bin/zsh -lc 'git status --short' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+ M architecture.md
+ M progress.txt
+ M resource-hub/.gitignore
+ M resource-hub/README.md
+ M task.json
+?? .dev-server.pid
+?? automation-logs/automation-20260217_173222.log
+?? automation-logs/dev-server-task2.log
+?? automation-logs/dev-server.log
+?? automation-logs/run-1-20260217_173222.log
+?? automation-logs/run-2-20260217_174232.log
+?? resource-hub/.env.local.example
+?? resource-hub/src/lib/env.ts
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Preparing focused commit**
+exec
+/bin/zsh -lc 'git diff -- progress.txt task.json resource-hub/.gitignore resource-hub/README.md resource-hub/.env.local.example resource-hub/src/lib/env.ts' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 50ms:
+diff --git a/progress.txt b/progress.txt
+index 270bf69..5b01220 100644
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Reviewing environment config**
+exec
+/bin/zsh -lc 'cat resource-hub/src/lib/env.ts' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+const PUBLIC_ENV_KEYS = [
+  "NEXT_PUBLIC_SUPABASE_URL",
+  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+] as const;
+
+const SERVER_ENV_KEYS = [
+  "SUPABASE_SERVICE_ROLE_KEY",
+  "SUPABASE_STORAGE_BUCKET",
+] as const;
+
+type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
+type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
+type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
+
+function readRequiredEnv(key: RequiredEnvKey): string {
+  const value = process.env[key];
+
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Preparing precise commit with env files**
+exec
+/bin/zsh -lc 'git add progress.txt task.json resource-hub/.gitignore resource-hub/README.md resource-hub/.env.local.example resource-hub/src/lib/env.ts && git status --short' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+ M architecture.md
+M  progress.txt
+A  resource-hub/.env.local.example
+M  resource-hub/.gitignore
+M  resource-hub/README.md
+A  resource-hub/src/lib/env.ts
+M  task.json
+?? .dev-server.pid
+?? automation-logs/automation-20260217_173222.log
+?? automation-logs/dev-server-task2.log
+?? automation-logs/dev-server.log
+?? automation-logs/run-1-20260217_173222.log
+?? automation-logs/run-2-20260217_174232.log
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Committing staged changes**
+exec
+/bin/zsh -lc 'git commit -m "环境变量与配置模板 - completed"' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+[main 50b90e6] 环境变量与配置模板 - completed
+ 6 files changed, 105 insertions(+), 21 deletions(-)
+ create mode 100644 resource-hub/.env.local.example
+ create mode 100644 resource-hub/src/lib/env.ts
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Verifying commit file changes**
+exec
+/bin/zsh -lc 'git status --short' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+ M architecture.md
+?? .dev-server.pid
+?? automation-logs/automation-20260217_173222.log
+?? automation-logs/dev-server-task2.log
+?? automation-logs/dev-server.log
+?? automation-logs/run-1-20260217_173222.log
+?? automation-logs/run-2-20260217_174232.log
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Confirming last commit contents**
+exec
+/bin/zsh -lc 'git show --name-only --oneline --no-patch HEAD' in /Users/wxx/Desktop/code/auto-coding-agent-demo exited 128 in 51ms:
+fatal: options '--name-only', '--name-status', '--check', and '-s' cannot be used together
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Correcting git command usage**
+exec
+/bin/zsh -lc 'git show --name-only --oneline HEAD' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+50b90e6 环境变量与配置模板 - completed
+progress.txt
+resource-hub/.env.local.example
+resource-hub/.gitignore
+resource-hub/README.md
+resource-hub/src/lib/env.ts
+task.json
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Marking all plans completed**
+Plan update
+任务 3 已完成并通过 lint/build 校验，已更新进度与任务状态并提交单次 commit。
+  ✓ 审查现有配置与文档，确认任务3缺口
+  ✓ 实现环境变量模板与统一校验模块
+  ✓ 更新 README、运行 lint/build 验证
+  ✓ 更新 progress/task 状态并提交一次 commit
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+
+thinking
+**Preparing concise final summary**
+codex
+已完成本轮唯一任务：`task.json` 中的 Task 3「环境变量与配置模板」（原 `passes: false`）。
+
+- 实现内容：
+  - 新增环境变量模板：`resource-hub/.env.local.example`
+  - 新增统一读取与校验模块：`resource-hub/src/lib/env.ts`
+  - 更新 README 环境变量说明：`resource-hub/README.md`
+  - 调整忽略规则以提交模板文件：`resource-hub/.gitignore`
+  - 记录进度：`progress.txt`
+  - 任务状态更新为通过：`task.json`（Task 3 -> `passes: true`）
+
+- 验证结果（在 `resource-hub/`）：
+  - `npm run lint` ✅
+  - `npm run build` ✅
+
+- 提交信息：
+  - Commit: `50b90e6`
+  - Message: `环境变量与配置模板 - completed`
+
+我已按你的要求只完成一个任务，并在完成后停止。
+file update:
+diff --git a/progress.txt b/progress.txt
+index 270bf69e08b1c65ced9189d348bac57fa0e26111..5b012209391300bd2357f7242757e1c1fbbe2567
+--- a/progress.txt
++++ b/progress.txt
+@@ -68,3 +68,18 @@
+ 
+ ### Notes:
+ - 本机 `3000` 端口被占用，Next.js dev server 自动切换到 `3001`，不影响任务交付。
++
++## 2026-02-17 - Task: 环境变量与配置模板
++
++### What was done:
++- 新增 `resource-hub/.env.local.example`，提供 Supabase URL、Anon Key、Service Role Key、Storage Bucket 模板变量。
++- 新增 `resource-hub/src/lib/env.ts`，统一实现环境变量读取与必填校验，并区分 `publicEnv` 与 `getServerEnv()` 访问方式。
++- 更新 `resource-hub/README.md`，补充 `.env.local` 初始化、变量说明与环境校验模块使用说明。
++- 更新 `resource-hub/.gitignore`，允许提交 `.env.local.example` 模板文件。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
+diff --git a/resource-hub/.env.local.example b/resource-hub/.env.local.example
+new file mode 100644
+index 0000000000000000000000000000000000000000..46a5af1f4b69c18ea7ebfc52dea02dc9d9966e38
+--- /dev/null
++++ b/resource-hub/.env.local.example
+@@ -0,0 +1,4 @@
++NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
++NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
++SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
++SUPABASE_STORAGE_BUCKET=resource-hub-files
+diff --git a/resource-hub/.gitignore b/resource-hub/.gitignore
+index 5ef6a520780202a1d6addd833d800ccb1ecac0bb..b721bff464b991a1be506ee3fb6800216bc05c1d
+--- a/resource-hub/.gitignore
++++ b/resource-hub/.gitignore
+@@ -32,6 +32,7 @@
+ 
+ # env files (can opt-in for committing if needed)
+ .env*
++!.env.local.example
+ 
+ # vercel
+ .vercel
+diff --git a/resource-hub/README.md b/resource-hub/README.md
+index e215bc4ccf138bbc38ad58ad57e92135484b3c0f..e3ba3a9a246b187d0e352d0fcc1d0c2b19201b49
+--- a/resource-hub/README.md
++++ b/resource-hub/README.md
+@@ -1,36 +1,45 @@
+-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
++# ResourceHub
++
++ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+ 
+ ## Getting Started
+ 
+-First, run the development server:
++1. Copy the environment template:
+ 
+ ```bash
+-npm run dev
+-# or
+-yarn dev
+-# or
+-pnpm dev
+-# or
+-bun dev
++cp .env.local.example .env.local
+ ```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++2. Fill in all Supabase values in `.env.local`:
+ 
+-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
++- `NEXT_PUBLIC_SUPABASE_URL`
++- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
++- `SUPABASE_SERVICE_ROLE_KEY`
++- `SUPABASE_STORAGE_BUCKET`
+ 
+-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
++3. Install dependencies and start development:
+ 
+-## Learn More
++```bash
++npm install
++npm run dev
++```
+ 
+-To learn more about Next.js, take a look at the following resources:
++Open `http://localhost:3000` in your browser.
++
++## Environment Validation
+ 
+-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++`src/lib/env.ts` provides centralized environment loading and validation:
+ 
+-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
++- `publicEnv` for browser-safe Supabase variables.
++- `getServerEnv()` for server-only secrets.
++- `env` for shared server runtime access.
+ 
+-## Deploy on Vercel
++If any required variable is missing, the app throws an error at startup/runtime.
+ 
+-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
++## Scripts
+ 
+-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++```bash
++npm run dev
++npm run lint
++npm run build
++```
+diff --git a/resource-hub/src/lib/env.ts b/resource-hub/src/lib/env.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a2d348ea9b1f91925c29392da6693bd558e5799
+--- /dev/null
++++ b/resource-hub/src/lib/env.ts
+@@ -0,0 +1,55 @@
++const PUBLIC_ENV_KEYS = [
++  "NEXT_PUBLIC_SUPABASE_URL",
++  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
++] as const;
++
++const SERVER_ENV_KEYS = [
++  "SUPABASE_SERVICE_ROLE_KEY",
++  "SUPABASE_STORAGE_BUCKET",
++] as const;
++
++type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
++type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
++type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
++
++function readRequiredEnv(key: RequiredEnvKey): string {
++  const value = process.env[key];
++
++  if (!value) {
++    throw new Error(`Missing required environment variable: ${key}`);
++  }
++
++  return value;
++}
++
++function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
++  keys: T,
++): Record<T[number], string> {
++  return keys.reduce(
++    (accumulator, key) => ({
++      ...accumulator,
++      [key]: readRequiredEnv(key),
++    }),
++    {} as Record<T[number], string>,
++  );
++}
++
++export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
++
++const serverEnv =
++  typeof window === "undefined"
++    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
++    : null;
++
++export function getServerEnv() {
++  if (!serverEnv) {
++    throw new Error("getServerEnv() can only be called on the server.");
++  }
++
++  return serverEnv;
++}
++
++export const env = Object.freeze({
++  ...publicEnv,
++  ...(serverEnv ?? {}),
++});
+diff --git a/task.json b/task.json
+index 9eb68db086014fded8c64775a3cf00f24410bfb6..6cb0e1e23d7ea985eea29497a6b595a72a24e48e
+--- a/task.json
++++ b/task.json
+@@ -36,7 +36,7 @@
+         "实现 lib/env.ts 统一读取和校验",
+         "补充 README 中环境变量说明"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 4,
+
+tokens used
+224,042
+已完成本轮唯一任务：`task.json` 中的 Task 3「环境变量与配置模板」（原 `passes: false`）。
+
+- 实现内容：
+  - 新增环境变量模板：`resource-hub/.env.local.example`
+  - 新增统一读取与校验模块：`resource-hub/src/lib/env.ts`
+  - 更新 README 环境变量说明：`resource-hub/README.md`
+  - 调整忽略规则以提交模板文件：`resource-hub/.gitignore`
+  - 记录进度：`progress.txt`
+  - 任务状态更新为通过：`task.json`（Task 3 -> `passes: true`）
+
+- 验证结果（在 `resource-hub/`）：
+  - `npm run lint` ✅
+  - `npm run build` ✅
+
+- 提交信息：
+  - Commit: `50b90e6`
+  - Message: `环境变量与配置模板 - completed`
+
+我已按你的要求只完成一个任务，并在完成后停止。

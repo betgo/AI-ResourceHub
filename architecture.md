@@ -10,7 +10,7 @@
 
 | 层级 | 技术选型 |
 | --- | --- |
-| Frontend | Next.js 14+ (App Router) + TypeScript + Tailwind CSS |
+| Frontend | Next.js 15+ (App Router) + TypeScript + Tailwind CSS |
 | Backend | Next.js Route Handlers + Server Actions |
 | Database | PostgreSQL (Supabase 托管) |
 | Auth | Supabase Auth |

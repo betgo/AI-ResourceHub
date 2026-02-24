@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { AuthNav } from "@/components/auth/auth-nav";
 import { Container } from "@/components/layout/container";
 import { cn } from "@/lib/utils";
 
@@ -24,12 +25,15 @@ export default function RootLayout({
         <div className="relative flex min-h-screen flex-col">
           <header className="border-b border-[var(--stroke-soft)] bg-white/80 backdrop-blur">
             <Container className="flex h-16 items-center justify-between gap-4">
-              <div className="text-sm font-semibold tracking-wide text-slate-800">
-                ResourceHub
+              <div className="space-y-0.5">
+                <div className="text-sm font-semibold tracking-wide text-slate-800">
+                  ResourceHub
+                </div>
+                <p className="hidden text-xs text-[var(--text-muted)] sm:block">
+                  Share. Discover. Build.
+                </p>
               </div>
-              <div className="text-xs text-[var(--text-muted)]">
-                Share. Discover. Build.
-              </div>
+              <AuthNav />
             </Container>
           </header>
           <main className="flex-1">{children}</main>

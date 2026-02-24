@@ -1,0 +1,4067 @@
+Reading prompt from stdin...
+OpenAI Codex v0.101.0 (research preview)
+--------
+workdir: /Users/wxx/Desktop/code/auto-coding-agent-demo
+model: gpt-5.3-codex
+provider: custom
+approval: never
+sandbox: danger-full-access
+reasoning effort: high
+reasoning summaries: auto
+session id: 019c6b0c-1dc8-7510-b5f3-ad161b76c360
+--------
+user
+Please follow the workflow in AGENT.md:
+1. Read task.json and select the next task with passes: false
+2. Implement the task following all listed steps
+3. Test thoroughly (run npm run lint and npm run build in resource-hub/ when available)
+4. Update progress.txt with your work
+5. Update task.json only when all checks pass
+6. Commit all related changes in a single commit
+
+Start by reading task.json to find your task.
+Please complete only one task in this session, and stop once done or blocked.
+
+mcp: playwright starting
+mcp: chrome-devtools starting
+mcp: linear starting
+mcp: figma starting
+2026-02-17T10:01:22.882273Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c691c-8393-7542-be9f-0f404e2fd080
+2026-02-17T10:01:22.906390Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c5bfe-4076-75d2-8392-835d9b0b346f
+2026-02-17T10:01:22.931695Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6a78-3388-7a71-864f-e606f93f4b62
+2026-02-17T10:01:22.956874Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6a6b-bfd3-7b23-9270-fde090249373
+2026-02-17T10:01:22.984315Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c5ecf-c973-7960-bdec-3e253071c815
+2026-02-17T10:01:23.009855Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6404-5c49-7d50-a5a3-e324e549af6c
+2026-02-17T10:01:23.034177Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6a9a-28c1-7170-8735-1c61b6870d08
+2026-02-17T10:01:23.057693Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c69be-7bf2-73f2-bf79-0d60f4070c42
+2026-02-17T10:01:23.082232Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c5c11-9035-7ef1-9562-d592e20c66c0
+2026-02-17T10:01:23.105850Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6ab3-55c8-7f93-973f-0027006a2096
+2026-02-17T10:01:23.131051Z ERROR codex_core::rollout::list: state db missing rollout path for thread 019c6a41-dd8f-7d30-b67f-36c104603a8a
+2026-02-17T10:01:23.360720Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer realm=\"OAuth\", error=\"invalid_token\", error_description=\"Missing or invalid access token\"" })
+mcp: linear failed: The linear MCP server is not logged in. Run `codex mcp login linear`.
+mcp: chrome-devtools ready
+mcp: figma ready
+mcp: playwright ready
+mcp startup: ready: chrome-devtools, figma, playwright; failed: linear
+
+thinking
+**Planning initial inspection steps**
+exec
+/bin/zsh -lc 'ls -la' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+total 128
+drwxr-xr-x@ 16 wxx  staff   512 Feb 17 17:43 .
+drwxr-xr-x@  7 wxx  staff   224 Feb 17 15:54 ..
+-rw-r--r--@  1 wxx  staff  6148 Feb 17 16:13 .DS_Store
+-rw-r--r--@  1 wxx  staff     6 Feb 17 17:43 .dev-server.pid
+drwxr-xr-x@ 14 wxx  staff   448 Feb 17 17:51 .git
+-rw-r--r--@  1 wxx  staff   206 Feb 17 15:54 .gitignore
+-rw-r--r--@  1 wxx  staff  3092 Feb 17 16:03 AGENT.md
+-rw-r--r--@  1 wxx  staff   441 Feb 17 16:08 AGENTS.md
+-rw-r--r--@  1 wxx  staff  1939 Feb 17 16:02 README.md
+-rw-r--r--@  1 wxx  staff  5555 Feb 17 16:31 architecture.md
+drwxr-xr-x@ 11 wxx  staff   352 Feb 17 18:01 automation-logs
+-rwxr-xr-x@  1 wxx  staff  2228 Feb 17 16:07 init.sh
+-rw-r--r--@  1 wxx  staff  3882 Feb 17 17:50 progress.txt
+drwxr-xr-x@ 16 wxx  staff   512 Feb 17 17:49 resource-hub
+-rwxr-xr-x@  1 wxx  staff  5953 Feb 17 16:07 run-automation.sh
+-rw-r--r--@  1 wxx  staff  9026 Feb 17 17:50 task.json
+
+thinking
+**Checking AGENT.md for details**
+exec
+/bin/zsh -lc 'cat AGENT.md' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+# ResourceHub - Project Instructions (Codex)
+
+## Project Context
+
+Build a production-oriented `Resource Sharing Website` with Next.js full-stack architecture.
+
+Primary goals:
+- User can upload and publish resources.
+- Visitors can search, filter, preview, favorite, and download resources.
+- Admin can review and moderate pending resources.
+
+---
+
+## MANDATORY: Agent Workflow
+
+Every new Codex session MUST follow this workflow.
+
+### Step 1: Initialize Environment
+
+```bash
+
+thinking
+**Running initialization script**
+exec
+/bin/zsh -lc ./init.sh in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 3.53s:
+
+up to date in 391ms
+
+178 packages are looking for funding
+  run `npm fund` for details
+Starting development server...
+[0;32mInitialization complete.[0m
+[0;32mDev server should be available at http://localhost:3000[0m
+PID: 63898
+Log: automation-logs/dev-server.log
+
+thinking
+**Planning output polling and stop**
+
+thinking
+**Selecting lowest false dependency**
+exec
+/bin/zsh -lc 'cat task.json' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+{
+  "project": "ResourceHub",
+  "description": "资源分享网站（上传、检索、收藏、下载、评论、审核）",
+  "tasks": [
+    {
+      "id": 1,
+      "title": "初始化 Next.js 项目",
+      "description": "创建 resource-hub 应用并完成基础工程配置",
+      "steps": [
+        "创建 Next.js 15+ TypeScript 项目到 resource-hub/",
+        "启用 App Router + src 目录结构",
+        "配置 ESLint + TypeScript strict",
+        "设置基础目录：src/app, src/components, src/lib, src/types"
+      ],
+      "passes": true
+    },
+    {
+      "id": 2,
+      "title": "基础依赖与 UI 框架",
+      "description": "安装项目核心依赖并建立 UI 基础",
+
+thinking
+**Inspecting resource-hub structure**
+exec
+/bin/zsh -lc 'find resource-hub -maxdepth 3 -type f | sort' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+Total output lines: 2162
+
+resource-hub/.env.local.example
+resource-hub/.gitignore
+resource-hub/.next/BUILD_ID
+resource-hub/.next/app-path-routes-manifest.json
+resource-hub/.next/build-manifest.json
+resource-hub/.next/build/package.json
+resource-hub/.next/build/postcss.js
+resource-hub/.next/build/postcss.js.map
+resource-hub/.next/cache/.previewinfo
+resource-hub/.next/cache/.rscinfo
+resource-hub/.next/cache/.tsbuildinfo
+resource-hub/.next/dev/build-manifest.json
+resource-hub/.next/dev/fallback-build-manifest.json
+resource-hub/.next/dev/lock
+resource-hub/.next/dev/package.json
+resource-hub/.next/dev/prerender-manifest.json
+resource-hub/.next/dev/routes-manifest.json
+resource-hub/.next/dev/trace
+
+thinking
+**Checking repository cleanliness**
+exec
+/bin/zsh -lc 'git status --short' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+ M architecture.md
+?? .dev-server.pid
+?? automation-logs/automation-20260217_173222.log
+?? automation-logs/dev-server-task2.log
+?? automation-logs/dev-server.log
+?? automation-logs/run-1-20260217_173222.log
+?? automation-logs/run-2-20260217_174232.log
+?? automation-logs/run-3-20260217_175226.log
+?? automation-logs/run-4-20260217_180121.log
+
+thinking
+**Focusing on minimal migration changes**
+exec
+/bin/zsh -lc 'cat resource-hub/README.md' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+# ResourceHub
+
+ResourceHub is a Next.js full-stack app for publishing and discovering digital resources.
+
+## Getting Started
+
+1. Copy the environment template:
+
+```bash
+cp .env.local.example .env.local
+```
+
+2. Fill in all Supabase values in `.env.local`:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_STORAGE_BUCKET`
+
+3. Install dependencies and start development:
+
+thinking
+**Checking migration folder presence**
+exec
+/bin/zsh -lc "find . -maxdepth 3 -type d -name 'supabase' -o -path './resource-hub/supabase*'" in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+
+
+thinking
+**Confirming supabase migrations location**
+exec
+/bin/zsh -lc 'cat architecture.md' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+# ResourceHub - 架构设计文档
+
+## 项目概述
+
+`ResourceHub` 是一个资源分享网站，支持用户上传和管理资源，支持访客检索、收藏、评论和下载，支持管理员进行内容审核。
+
+---
+
+## 技术栈
+
+| 层级 | 技术选型 |
+| --- | --- |
+| Frontend | Next.js 15+ (App Router) + TypeScript + Tailwind CSS |
+| Backend | Next.js Route Handlers + Server Actions |
+| Database | PostgreSQL (Supabase 托管) |
+| Auth | Supabase Auth |
+| Storage | Supabase Storage（资源文件 + 封面图） |
+| Search | PostgreSQL Full Text + 过滤索引 |
+| Deployment | Vercel + Supabase |
+
+
+thinking
+**Designing robust DB migration**
+exec
+/bin/zsh -lc "cat .gitignore && echo '---' && cat resource-hub/.gitignore" in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+# Playwright MCP
+.playwright-mcp/
+
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+dist/
+build/
+
+# OS files
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Screenshots
+*.png
+
+thinking
+**Clarifying root ignore patterns**
+exec
+/bin/zsh -lc 'cat progress.txt' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+# Progress Log
+
+## 2026-02-17 - Task: 项目方向迁移（Video → ResourceHub）
+
+### What was done:
+- 将项目定位从视频生成平台改为资源分享网站。
+- 重写 architecture.md，改为 ResourceHub 架构（资源发布、检索、评论、收藏、下载、审核）。
+- 重写 task.json，拆分为 24 个任务并全部标记为 `passes: false`。
+- 更新 AGENT.md 工作流，改为 Codex 驱动。
+- 更新 README.md，替换 Claude 使用说明为 Codex。
+- 更新 run-automation.sh，CLI 从 `claude` 切换到 `codex exec`。
+- 调整 init.sh，支持自动识别应用目录并兼容未初始化状态。
+
+### Testing:
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/init.sh`
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/run-automation.sh`
+- 运行 `python3 -m json.tool /Users/wxx/Desktop/code/auto-coding-agent-demo/task.json`
+
+### Notes:
+- 当前仓库尚未包含 `resource-hub/` 应用代码，后续任务会逐步创建。
+
+thinking
+**Designing robust core schema migration**
+Plan update
+开始执行 Task 4（数据库 Schema 设计与迁移），按工作流先实现迁移，再做校验与记录。
+  ✓ 检查当前任务状态并确认要执行 task 4 的具体要求
+  → 在 resource-hub/supabase/migrations 下新增 SQL migration，创建核心表与索引
+  • 运行 resource-hub 的 lint/build 验证
+  • 更新 progress.txt 与 task.json（仅在校验通过后）
+  • 提交本任务相关改动为单个 commit
+
+thinking
+**Designing idempotent migration script**
+file update
+A /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+create extension if not exists pgcrypto;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_type t
+    join pg_namespace n on n.oid = t.typnamespace
+    where t.typname = 'resource_status'
+      and n.nspname = 'public'
+  ) then
+    create type public.resource_status as enum ('pending', 'published', 'rejected');
+  end if;
+end
+$$;
+
+create or replace function public.set_updated_at()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$;
+
+create table if not exists public.categories (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  slug text not null,
+  created_at timestamptz not null default now(),
+  constraint categories_name_key unique (name),
+  constraint categories_slug_key unique (slug)
+);
+
+create table if not exists public.tags (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  slug text not null,
+  created_at timestamptz not null default now(),
+  constraint tags_name_key unique (name),
+  constraint tags_slug_key unique (slug)
+);
+
+create table if not exists public.resources (
+  id uuid primary key default gen_random_uuid(),
+  owner_id uuid not null references auth.users(id) on delete cascade,
+  category_id uuid references public.categories(id) on delete set null,
+  title text not null,
+  description text not null,
+  file_url text not null,
+  cover_url text,
+  status public.resource_status not null default 'pending',
+  review_reason text,
+  published_at timestamptz,
+  rejected_at timestamptz,
+  download_count integer not null default 0 check (download_count >= 0),
+  favorite_count integer not null default 0 check (favorite_count >= 0),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  search_vector tsvector generated always as (
+    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
+    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
+  ) stored
+);
+
+create table if not exists public.resource_tags (
+  resource_id uuid not null references public.resources(id) on delete cascade,
+  tag_id uuid not null references public.tags(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (resource_id, tag_id)
+);
+
+create table if not exists public.comments (
+  id uuid primary key default gen_random_uuid(),
+  resource_id uuid not null references public.resources(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  content text not null check (char_length(trim(content)) > 0),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.favorites (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  resource_id uuid not null references public.resources(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (user_id, resource_id)
+);
+
+create table if not exists public.downloads (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete set null,
+  resource_id uuid not null references public.resources(id) on delete cascade,
+  ip_hash text,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists idx_resources_status on public.resources (status);
+create index if not exists idx_resources_category_id on public.resources (category_id);
+create index if not exists idx_resources_created_at on public.resources (created_at desc);
+create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
+
+create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
+create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
+create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
+create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
+
+drop trigger if exists set_resources_updated_at on public.resources;
+create trigger set_resources_updated_at
+before update on public.resources
+for each row
+execute function public.set_updated_at();
+
+drop trigger if exists set_comments_updated_at on public.comments;
+create trigger set_comments_updated_at
+before update on public.comments
+for each row
+execute function public.set_updated_at();
+apply_patch(auto_approved=true) exited 0 in 44ms:
+Success. Updated the following files:
+A resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+file update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+
+file update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+
+
+thinking
+**Confirming step completion**
+exec
+/bin/zsh -lc "sed -n '1,240p' resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql" in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+create extension if not exists pgcrypto;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_type t
+    join pg_namespace n on n.oid = t.typnamespace
+    where t.typname = 'resource_status'
+      and n.nspname = 'public'
+  ) then
+    create type public.resource_status as enum ('pending', 'published', 'rejected');
+  end if;
+end
+$$;
+
+create or replace function public.set_updated_at()
+returns trigger
+language plpgsql
+as $$
+file update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+
+
+thinking
+**Sequencing lint and build**
+exec
+/bin/zsh -lc 'npm run lint' in /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hubfile update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+
+ succeeded in 1.65s:
+
+> resource-hub@0.1.0 lint
+> eslint
+
+file update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+
+
+thinking
+**Confirming clean lint results**
+exec
+/bin/zsh -lc 'npm run build' in /Users/wxx/Desktop/code/auto-coding-agent-demo/resource-hubfile update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+
+ succeeded in 3.76s:
+▲ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1204.0ms
+  Running TypeScript ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/4) ...
+  Generating static pages using 9 workers (1/4) 
+  Generating static pages using 9 workers (2/4) 
+  Generating static pages using 9 workers (3/4) 
+✓ Generating static pages using 9 workers (4/4) in 128.9ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+file update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+
+
+thinking
+**Planning patch for progress and task updates**
+exec
+/bin/zsh -lc "python3 - <<'PY'
+import json
+from pathlib import Path
+p=Path('task.json')
+obj=json.loads(p.read_text())
+for t in obj['tasks']:
+    if t['id']==4:
+        print(t)
+PY" in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+{'id': 4, 'title': '数据库 Schema 设计与迁移', 'description': '创建资源分享核心数据表', 'steps': ['创建 categories, tags, resources, resource_tags 表', '创建 comments, favorites, downloads 表', '创建必要索引（status、category_id、created_at、FTS）', '编写 SQL migration 到 supabase/migrations/'], 'passes': False}
+file update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+
+
+thinking
+**Planning JSON patch application**
+exec
+/bin/zsh -lc 'tail -n 80 progress.txt' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+- 将项目定位从视频生成平台改为资源分享网站。
+- 重写 architecture.md，改为 ResourceHub 架构（资源发布、检索、评论、收藏、下载、审核）。
+- 重写 task.json，拆分为 24 个任务并全部标记为 `passes: false`。
+- 更新 AGENT.md 工作流，改为 Codex 驱动。
+- 更新 README.md，替换 Claude 使用说明为 Codex。
+- 更新 run-automation.sh，CLI 从 `claude` 切换到 `codex exec`。
+- 调整 init.sh，支持自动识别应用目录并兼容未初始化状态。
+
+### Testing:
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/init.sh`
+- 运行 `bash -n /Users/wxx/Desktop/code/auto-coding-agent-demo/run-automation.sh`
+- 运行 `python3 -m json.tool /Users/wxx/Desktop/code/auto-coding-agent-demo/task.json`
+
+### Notes:
+- 当前仓库尚未包含 `resource-hub/` 应用代码，后续任务会逐步创建。
+- 若未设置 `APP_DIR`，脚本会自动探测包含 `package.json` 的目录。
+
+## 2026-02-17 - Task: 初始化 Next.js 项目
+
+### What was done:
+file update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+
+
+thinking
+**Using apply_patch for edits**
+file update
+M /Users/wxx/Desktop/code/auto-coding-agent-demo/task.json
+@@ -50,3 +50,3 @@
+       ],
+-      "passes": false
++      "passes": true
+     },
+apply_patch(auto_approved=true) exited 0 in 29ms:
+Success. Updated the following files:
+M task.json
+file update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+file update:
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+file update
+M /Users/wxx/Desktop/code/auto-coding-agent-demo/progress.txt
+@@ -85 +85,17 @@
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+apply_patch(auto_approved=true) exited 0 in 39ms:
+Success. Updated the following files:
+M progress.txt
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**Validating JSON format**
+exec
+/bin/zsh -lc 'python3 -m json.tool task.json >/dev/null && echo OK' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+OK
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**Updating plan statuses**
+Plan update
+迁移实现和校验已完成，正在准备提交。
+  ✓ 检查当前任务状态并确认要执行 task 4 的具体要求
+  ✓ 在 resource-hub/supabase/migrations 下新增 SQL migration，创建核心表与索引
+  ✓ 运行 resource-hub 的 lint/build 验证
+  ✓ 更新 progress.txt 与 task.json（仅在校验通过后）
+  → 提交本任务相关改动为单个 commit
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**Inspecting git status for staging**
+exec
+/bin/zsh -lc 'git status --short' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+ M architecture.md
+ M progress.txt
+ M task.json
+?? .dev-server.pid
+?? automation-logs/automation-20260217_173222.log
+?? automation-logs/dev-server-task2.log
+?? automation-logs/dev-server.log
+?? automation-logs/run-1-20260217_173222.log
+?? automation-logs/run-2-20260217_174232.log
+?? automation-logs/run-3-20260217_175226.log
+?? automation-logs/run-4-20260217_180121.log
+?? resource-hub/supabase/
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**Planning staged commit with diff review**
+exec
+/bin/zsh -lc 'git diff -- progress.txt task.json resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+diff --git a/progress.txt b/progress.txt
+index 5b01220..73ae694 100644
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**Confirming new file presence**
+exec
+/bin/zsh -lc 'git diff -- resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**Committing schema design files**
+exec
+/bin/zsh -lc 'git add task.json progress.txt resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql && git status --short' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+ M architecture.md
+M  progress.txt
+A  resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+M  task.json
+?? .dev-server.pid
+?? automation-logs/automation-20260217_173222.log
+?? automation-logs/dev-server-task2.log
+?? automation-logs/dev-server.log
+?? automation-logs/run-1-20260217_173222.log
+?? automation-logs/run-2-20260217_174232.log
+?? automation-logs/run-3-20260217_175226.log
+?? automation-logs/run-4-20260217_180121.log
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**Committing staged changes**
+exec
+/bin/zsh -lc 'git commit -m "[数据库 Schema 设计与迁移] - completed"' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 52ms:
+[main 3aceb42] [数据库 Schema 设计与迁移] - completed
+ 3 files changed, 135 insertions(+), 1 deletion(-)
+ create mode 100644 resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**Finalizing update plan**
+Plan update
+已完成本次任务并提交单个 commit。
+  ✓ 检查当前任务状态并确认要执行 task 4 的具体要求
+  ✓ 在 resource-hub/supabase/migrations 下新增 SQL migration，创建核心表与索引
+  ✓ 运行 resource-hub 的 lint/build 验证
+  ✓ 更新 progress.txt 与 task.json（仅在校验通过后）
+  ✓ 提交本任务相关改动为单个 commit
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**Verifying post-commit repository status**
+exec
+/bin/zsh -lc 'git status --short' in /Users/wxx/Desktop/code/auto-coding-agent-demo succeeded in 51ms:
+ M architecture.md
+?? .dev-server.pid
+?? automation-logs/automation-20260217_173222.log
+?? automation-logs/dev-server-task2.log
+?? automation-logs/dev-server.log
+?? automation-logs/run-1-20260217_173222.log
+?? automation-logs/run-2-20260217_174232.log
+?? automation-logs/run-3-20260217_175226.log
+?? automation-logs/run-4-20260217_180121.log
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+
+thinking
+**总结已完成任务和提交**
+codex
+已按 `AGENT.md` 工作流完成且仅完成 1 个任务（Task 4: 数据库 Schema 设计与迁移）。
+
+- 已读取 `task.json` 并选择下一个 `passes: false` 任务：`id=4`
+- 已实现迁移：`resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`
+  - 创建 `categories/tags/resources/resource_tags/comments/favorites/downloads`
+  - 添加 `status/category_id/created_at/FTS` 索引（含 `search_vector` + GIN）
+- 已执行测试（在 `resource-hub/`）：
+  - `npm run lint` ✅
+  - `npm run build` ✅
+- 已更新进度：`progress.txt`
+- 已在验证通过后更新任务状态：`task.json`（Task 4 -> `passes: true`）
+- 已完成单次提交：`3aceb42`  
+  Commit message: `[数据库 Schema 设计与迁移] - completed`
+
+我已按要求在完成一个任务后停止。
+file update:
+diff --git a/progress.txt b/progress.txt
+index 5b012209391300bd2357f7242757e1c1fbbe2567..73ae6946dcf78425b983dce2f30f1eb55e4e6ccd
+--- a/progress.txt
++++ b/progress.txt
+@@ -83,3 +83,19 @@
+ 
+ ### Notes:
+ - `src/lib/env.ts` 采用 fail-fast 校验，缺失关键变量时会直接抛错，避免运行期隐性配置问题。
++
++## 2026-02-17 - Task: 数据库 Schema 设计与迁移
++
++### What was done:
++- 新增迁移文件 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`。
++- 创建核心表：`categories`、`tags`、`resources`、`resource_tags`、`comments`、`favorites`、`downloads`。
++- 为 `resources.status` 使用 `resource_status` enum，并增加 `search_vector` 生成列支持 Full-Text Search。
++- 按任务要求补充索引：`status`、`category_id`、`created_at`、`search_vector`，并为关联查询补充常用辅助索引。
++- 添加 `set_updated_at` trigger function，并在 `resources`、`comments` 上挂载更新时间触发器。
++
++### Testing:
++- 运行 `npm run lint`（in `resource-hub/`）: pass
++- 运行 `npm run build`（in `resource-hub/`）: pass
++
++### Notes:
++- 当前任务仅完成 schema migration，不包含 RLS policy；后续安全任务可基于该结构继续补齐权限策略。
+diff --git a/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..12c0f49031183f5309480be7355e7f3a85b6bfc6
+--- /dev/null
++++ b/resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql
+@@ -0,0 +1,118 @@
++create extension if not exists pgcrypto;
++
++do $$
++begin
++  if not exists (
++    select 1
++    from pg_type t
++    join pg_namespace n on n.oid = t.typnamespace
++    where t.typname = 'resource_status'
++      and n.nspname = 'public'
++  ) then
++    create type public.resource_status as enum ('pending', 'published', 'rejected');
++  end if;
++end
++$$;
++
++create or replace function public.set_updated_at()
++returns trigger
++language plpgsql
++as $$
++begin
++  new.updated_at = now();
++  return new;
++end;
++$$;
++
++create table if not exists public.categories (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint categories_name_key unique (name),
++  constraint categories_slug_key unique (slug)
++);
++
++create table if not exists public.tags (
++  id uuid primary key default gen_random_uuid(),
++  name text not null,
++  slug text not null,
++  created_at timestamptz not null default now(),
++  constraint tags_name_key unique (name),
++  constraint tags_slug_key unique (slug)
++);
++
++create table if not exists public.resources (
++  id uuid primary key default gen_random_uuid(),
++  owner_id uuid not null references auth.users(id) on delete cascade,
++  category_id uuid references public.categories(id) on delete set null,
++  title text not null,
++  description text not null,
++  file_url text not null,
++  cover_url text,
++  status public.resource_status not null default 'pending',
++  review_reason text,
++  published_at timestamptz,
++  rejected_at timestamptz,
++  download_count integer not null default 0 check (download_count >= 0),
++  favorite_count integer not null default 0 check (favorite_count >= 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now(),
++  search_vector tsvector generated always as (
++    setweight(to_tsvector('simple', coalesce(title, '')), 'A') ||
++    setweight(to_tsvector('simple', coalesce(description, '')), 'B')
++  ) stored
++);
++
++create table if not exists public.resource_tags (
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  tag_id uuid not null references public.tags(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (resource_id, tag_id)
++);
++
++create table if not exists public.comments (
++  id uuid primary key default gen_random_uuid(),
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  user_id uuid not null references auth.users(id) on delete cascade,
++  content text not null check (char_length(trim(content)) > 0),
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
++create table if not exists public.favorites (
++  user_id uuid not null references auth.users(id) on delete cascade,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  created_at timestamptz not null default now(),
++  primary key (user_id, resource_id)
++);
++
++create table if not exists public.downloads (
++  id uuid primary key default gen_random_uuid(),
++  user_id uuid references auth.users(id) on delete set null,
++  resource_id uuid not null references public.resources(id) on delete cascade,
++  ip_hash text,
++  created_at timestamptz not null default now()
++);
++
++create index if not exists idx_resources_status on public.resources (status);
++create index if not exists idx_resources_category_id on public.resources (category_id);
++create index if not exists idx_resources_created_at on public.resources (created_at desc);
++create index if not exists idx_resources_search_vector on public.resources using gin (search_vector);
++
++create index if not exists idx_resource_tags_tag_id on public.resource_tags (tag_id);
++create index if not exists idx_comments_resource_id_created_at on public.comments (resource_id, created_at desc);
++create index if not exists idx_favorites_resource_id on public.favorites (resource_id);
++create index if not exists idx_downloads_resource_id_created_at on public.downloads (resource_id, created_at desc);
++
++drop trigger if exists set_resources_updated_at on public.resources;
++create trigger set_resources_updated_at
++before update on public.resources
++for each row
++execute function public.set_updated_at();
++
++drop trigger if exists set_comments_updated_at on public.comments;
++create trigger set_comments_updated_at
++before update on public.comments
++for each row
++execute function public.set_updated_at();
+diff --git a/task.json b/task.json
+index 6cb0e1e23d7ea985eea29497a6b595a72a24e48e..7f4ddd0a0cf1bf3d201c3048e623e0553a6df499
+--- a/task.json
++++ b/task.json
+@@ -48,7 +48,7 @@
+         "创建必要索引（status、category_id、created_at、FTS）",
+         "编写 SQL migration 到 supabase/migrations/"
+       ],
+-      "passes": false
++      "passes": true
+     },
+     {
+       "id": 5,
+
+tokens used
+223,098
+已按 `AGENT.md` 工作流完成且仅完成 1 个任务（Task 4: 数据库 Schema 设计与迁移）。
+
+- 已读取 `task.json` 并选择下一个 `passes: false` 任务：`id=4`
+- 已实现迁移：`resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql`
+  - 创建 `categories/tags/resources/resource_tags/comments/favorites/downloads`
+  - 添加 `status/category_id/created_at/FTS` 索引（含 `search_vector` + GIN）
+- 已执行测试（在 `resource-hub/`）：
+  - `npm run lint` ✅
+  - `npm run build` ✅
+- 已更新进度：`progress.txt`
+- 已在验证通过后更新任务状态：`task.json`（Task 4 -> `passes: true`）
+- 已完成单次提交：`3aceb42`  
+  Commit message: `[数据库 Schema 设计与迁移] - completed`
+
+我已按要求在完成一个任务后停止。
