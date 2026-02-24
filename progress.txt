@@ -114,3 +114,19 @@
 
 ### Notes:
 - 当前实现遵循 Supabase SSR 推荐的 cookies 同步方式，可为后续认证与路由保护任务复用。
+
+## 2026-02-24 - Task: 认证模块
+
+### What was done:
+- 完成并核对认证模块实现：`/login`、`/register` 页面已接入统一 `AuthForm`，支持 email/password 登录与注册。
+- 确认已提供 `LogoutButton` 组件，并在 `AuthNav` 中根据登录态展示发布、Dashboard 与退出按钮。
+- 确认 `src/lib/supabase/middleware.ts` 已对 `/submit`、`/dashboard`、`/admin` 路由做登录保护，并处理登录页/注册页的已登录跳转逻辑。
+- 本次会话将任务状态更新为通过，并同步进度记录。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+- 运行本地 smoke test（启动 dev server 后检查 `/login`、`/register` 页面文案与 `/dashboard` 未登录重定向）: pass
+
+### Notes:
+- 构建与开发阶段仍有 Next.js `middleware` 命名弃用提示（建议后续迁移到 `proxy`）。

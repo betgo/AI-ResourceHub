@@ -72,7 +72,7 @@
         "实现 LogoutButton 组件",
         "middleware 保护 /submit /dashboard /admin 路由"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 7,
