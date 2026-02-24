@@ -1,10 +1,11 @@
 import "server-only";
 
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 import { getServerEnv, publicEnv } from "@/lib/env";
+import type { Database } from "@/types/database";
 
-let adminClient: ReturnType<typeof createClient> | null = null;
+let adminClient: SupabaseClient<Database> | null = null;
 
 export function createAdminClient() {
   if (adminClient) {
@@ -13,7 +14,7 @@ export function createAdminClient() {
 
   const serverEnv = getServerEnv();
 
-  adminClient = createClient(
+  adminClient = createClient<Database>(
     publicEnv.NEXT_PUBLIC_SUPABASE_URL,
     serverEnv.SUPABASE_SERVICE_ROLE_KEY,
     {

@@ -96,7 +96,7 @@
         "实现查询、创建、去重逻辑",
         "补充 slug 生成工具"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 9,

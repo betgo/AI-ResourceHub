@@ -147,3 +147,18 @@
 
 ### Notes:
 - 仍存在 Next.js `middleware` 命名弃用提示（建议后续迁移到 `proxy`），不影响本任务交付。
+
+## 2026-02-24 - Task: 分类与标签数据层
+
+### What was done:
+- 新增 `resource-hub/src/lib/slug.ts`，提供通用 `slugify()`，统一处理空格、大小写、分隔符与非法字符。
+- 新增 `resource-hub/src/lib/db/categories.ts`，实现分类查询与创建逻辑，创建时按 slug 去重并处理并发唯一键冲突回退。
+- 新增 `resource-hub/src/lib/db/tags.ts`，实现标签列表查询、关键词检索、单个创建与批量创建，包含输入去重与冲突兜底。
+- 新增 `resource-hub/src/types/database.ts`，补充 Supabase `Database` 类型定义；更新 `resource-hub/src/lib/supabase/admin.ts` 使用强类型 client。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。
