@@ -132,7 +132,7 @@
         "创建 GET/PATCH/DELETE /api/resources/:id",
         "统一 API 错误返回格式"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 12,
