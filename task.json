@@ -144,7 +144,7 @@
         "创建 POST /api/resources/:id/download",
         "校验用户登录态和资源发布状态"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 13,

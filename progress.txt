@@ -209,3 +209,19 @@
 ### Notes:
 - `GET /api/resources` 默认仅返回 `published` 资源；当登录用户查询自身资源时支持查看非公开状态。
 - 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。
+
+## 2026-02-24 - Task: 互动 API
+
+### What was done:
+- 新增 `resource-hub/src/app/api/resources/[id]/comments/route.ts`，实现 `GET/POST /api/resources/:id/comments`，支持分页查询与评论创建。
+- 新增 `resource-hub/src/app/api/resources/[id]/favorite/route.ts`，实现 `POST /api/resources/:id/favorite`，按用户对资源执行收藏状态切换。
+- 新增 `resource-hub/src/app/api/resources/[id]/download/route.ts`，实现 `POST /api/resources/:id/download`，写入下载记录并触发下载计数回写。
+- 三个互动 API 统一接入资源存在性与发布状态校验，并在写操作中校验登录态，沿用统一错误响应结构。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 当前 `download` 接口要求登录用户触发下载记录；后续如需支持匿名下载，可在该路由扩展 `ip_hash` 逻辑。
+- 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。
