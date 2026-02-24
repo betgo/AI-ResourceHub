@@ -168,7 +168,7 @@
         "支持 approve/reject + reason",
         "严格校验 admin 权限"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 15,

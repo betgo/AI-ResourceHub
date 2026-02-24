@@ -240,3 +240,19 @@
 
 ### Notes:
 - 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。
+
+## 2026-02-24 - Task: 审核 API
+
+### What was done:
+- 新增 `resource-hub/src/lib/auth/admin.ts`，实现管理员鉴权工具，严格基于 `app_metadata` 中的 `role/roles/is_admin` 判定管理员身份。
+- 新增 `resource-hub/src/app/api/admin/resources/pending/route.ts`，实现 `GET /api/admin/resources/pending`，支持 `page/pageSize` 参数并返回待审核资源分页列表。
+- 新增 `resource-hub/src/app/api/admin/resources/[id]/review/route.ts`，实现 `POST /api/admin/resources/:id/review`。
+- 审核接口支持 `approve/reject` 动作，`reject` 时强制校验 `reason`，并通过 `updateResourceStatus` 写入资源状态与审核原因。
+- 审核接口增加资源状态前置校验，仅允许 `pending` 资源审核，非 `pending` 返回 `409 RESOURCE_NOT_PENDING`。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。
