@@ -23,6 +23,10 @@ function normalizeName(value: string): string {
   return value.trim().replace(/\s+/g, " ");
 }
 
+function normalizeId(value: string): string {
+  return value.trim();
+}
+
 function normalizeLimit(limit: number | undefined): number {
   if (!limit || Number.isNaN(limit) || limit < 1) {
     return DEFAULT_TAG_LIMIT;
@@ -76,6 +80,42 @@ export async function listTags(limit?: number): Promise<Tag[]> {
 
   if (error) {
     throw new Error(`Failed to list tags: ${error.message}`);
+  }
+
+  return data ?? [];
+}
+
+export async function listTagsByResource(resourceId: string): Promise<Tag[]> {
+  const normalizedResourceId = normalizeId(resourceId);
+
+  if (!normalizedResourceId) {
+    return [];
+  }
+
+  const admin = createAdminClient();
+  const { data: links, error: linksError } = await admin
+    .from("resource_tags")
+    .select("tag_id")
+    .eq("resource_id", normalizedResourceId);
+
+  if (linksError) {
+    throw new Error(`Failed to list resource tags: ${linksError.message}`);
+  }
+
+  const tagIds = [...new Set((links ?? []).map((link) => link.tag_id).filter(Boolean))];
+
+  if (tagIds.length === 0) {
+    return [];
+  }
+
+  const { data, error } = await admin
+    .from("tags")
+    .select(TAG_COLUMNS)
+    .in("id", tagIds)
+    .order("name", { ascending: true });
+
+  if (error) {
+    throw new Error(`Failed to list tags by resource: ${error.message}`);
   }
 
   return data ?? [];

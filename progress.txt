@@ -292,3 +292,23 @@
 ### Notes:
 - 本地 Supabase 环境当前缺少部分表时，页面会显示数据不可用提示并降级展示空列表；待迁移执行完成后可恢复完整数据展示。
 - 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务交付。
+
+## 2026-02-25 - Task: 资源详情页 UI
+
+### What was done:
+- 新增 `resource-hub/src/app/resources/[id]/page.tsx`，实现 `/resources/[id]` 详情页并展示标题、描述、分类、标签、作者与封面信息。
+- 新增 `resource-hub/src/components/resources/resource-detail-interactions.tsx`，实现收藏按钮、下载按钮、评论列表与评论提交表单。
+- 详情页接入登录态感知：未登录用户可见引导文案与登录入口，互动操作触发清晰错误提示。
+- 评论提交已接入 `POST /api/resources/:id/comments` 并支持提交成功后即时回显；收藏与下载分别接入对应互动 API。
+- 在 `resource-hub/src/lib/db/tags.ts` 新增 `listTagsByResource`，用于详情页按资源加载标签数据。
+- 增强详情页健壮性：资源查询异常时降级到 `notFound`，避免数据库异常导致页面 500。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+- 使用 Playwright CLI 访问 `http://localhost:3000/resources`，确认列表页可进入详情路由场景并显示数据异常降级提示: pass
+- 使用 Playwright CLI 访问 `http://localhost:3000/resources/demo-id`，确认详情路由存在并返回 404 状态: pass
+
+### Notes:
+- 当前 `.env.local` 指向的 Supabase 项目缺少 `public.resources` 表，导致本地无法构造真实资源详情数据进行完整交互演练；已完成代码实现与构建级验证。
+- 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务交付。
