@@ -312,3 +312,22 @@
 ### Notes:
 - 当前 `.env.local` 指向的 Supabase 项目缺少 `public.resources` 表，导致本地无法构造真实资源详情数据进行完整交互演练；已完成代码实现与构建级验证。
 - 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务交付。
+
+## 2026-02-25 - Task: 用户中心 UI
+
+### What was done:
+- 新增 `resource-hub/src/app/dashboard/page.tsx`，实现 `/dashboard` 页面并展示用户中心总览（我的资源、收藏数、下载数）。
+- 在 Dashboard 中按状态分组展示“我的资源”（`pending/published/rejected`），并补充拒绝原因展示与空状态。
+- 新增收藏与下载记录区块，展示历史记录并关联资源元信息，支持快捷跳转到资源详情与再次下载入口。
+- 新增 `resource-hub/src/app/dashboard/resources/[id]/edit/page.tsx` 与 `resource-hub/src/components/resources/edit-resource-form.tsx`，提供资源编辑入口与编辑表单（title/description/category/fileUrl/coverUrl）。
+- 扩展 `resource-hub/src/lib/db/resources.ts`：新增 `listResourcesByIds`，用于 Dashboard 批量补全收藏/下载记录关联资源信息。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+- 使用 Playwright MCP 访问 `http://localhost:3000/dashboard`，确认 Dashboard 页面渲染、分组区块与空状态展示: pass
+- 使用 Playwright MCP 退出登录后再次访问 `http://localhost:3000/dashboard`，确认重定向到 `http://localhost:3000/login?next=%2Fdashboard`: pass
+
+### Notes:
+- 当前环境部分 Supabase 数据读取存在降级提示（页面显示 `Some data is temporarily unavailable`），但不影响 Dashboard 主体结构、编辑入口与构建校验通过。
+- 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务交付。

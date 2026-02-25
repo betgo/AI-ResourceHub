@@ -248,6 +248,23 @@ export async function getResourceById(resourceId: string): Promise<Resource | nu
   return data as Resource | null;
 }
 
+export async function listResourcesByIds(resourceIds: string[]): Promise<Resource[]> {
+  const normalizedIds = dedupeStrings(resourceIds).map((value) => normalizeId(value));
+
+  if (normalizedIds.length === 0) {
+    return [];
+  }
+
+  const admin = createAdminClient();
+  const { data, error } = await admin.from("resources").select("*").in("id", normalizedIds);
+
+  if (error) {
+    throw new Error(`Failed to list resources by ids: ${error.message}`);
+  }
+
+  return (data ?? []) as Resource[];
+}
+
 export async function updateResource(input: UpdateResourceInput): Promise<Resource | null> {
   const normalizedId = normalizeId(input.id);
 
