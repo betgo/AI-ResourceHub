@@ -180,7 +180,7 @@
         "添加 CTA：浏览资源、发布资源",
         "支持移动端导航"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 16,

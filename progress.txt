@@ -256,3 +256,20 @@
 
 ### Notes:
 - 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响当前任务交付。
+
+## 2026-02-25 - Task: 首页 UI
+
+### What was done:
+- 完成首页 Hero 区块，补充平台定位文案与双 CTA（`Start Exploring`、`Share a Resource`）。
+- 首页新增 `Popular Categories` 区块，接入分类数据读取并在查询失败时提供 fallback 分类。
+- 首页新增 `Latest Resources` 区块，接入已发布资源列表，包含发布时间、收藏数、下载数与空状态展示。
+- 升级全局 Header：品牌 Logo 可回到首页，桌面端新增主导航（Home/Browse/Publish）并按登录态展示操作入口。
+- 完成移动端导航菜单（`details/summary` 方案），支持未登录与已登录两套入口渲染。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+- 使用 Playwright CLI 访问 `http://localhost:3000`，核验首页 Hero、热门分类、最新资源区块与移动端菜单展开: pass
+
+### Notes:
+- `Browse` 相关链接当前指向 `/resources`，完整列表页能力将在后续 Task 16 交付。

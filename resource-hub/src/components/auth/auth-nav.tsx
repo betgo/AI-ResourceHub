@@ -4,46 +4,120 @@ import { createClient } from "@/lib/supabase/server";
 
 import { LogoutButton } from "./logout-button";
 
+const primaryNavItems = [
+  { href: "/", label: "Home" },
+  { href: "/resources", label: "Browse" },
+  { href: "/submit", label: "Publish" },
+];
+
 export async function AuthNav() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return (
-      <nav className="flex items-center gap-2">
-        <Link
-          href="/login"
-          className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400"
-        >
-          Log in
-        </Link>
-        <Link
-          href="/register"
-          className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
-        >
-          Create account
-        </Link>
-      </nav>
-    );
-  }
-
   return (
-    <nav className="flex items-center gap-2">
-      <Link
-        href="/submit"
-        className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400"
-      >
-        Publish
-      </Link>
-      <Link
-        href="/dashboard"
-        className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
-      >
-        Dashboard
-      </Link>
-      <LogoutButton />
-    </nav>
+    <>
+      <div className="hidden items-center gap-3 md:flex">
+        <nav className="mr-2 flex items-center gap-1">
+          {primaryNavItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        {user ? (
+          <>
+            <Link
+              href="/dashboard"
+              className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+            >
+              Dashboard
+            </Link>
+            <LogoutButton />
+          </>
+        ) : (
+          <>
+            <Link
+              href="/login"
+              className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400"
+            >
+              Log in
+            </Link>
+            <Link
+              href="/register"
+              className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+            >
+              Create account
+            </Link>
+          </>
+        )}
+      </div>
+
+      <details className="group relative md:hidden">
+        <summary className="flex list-none h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-[var(--stroke-soft)] bg-white text-slate-700 transition hover:bg-slate-50 [&::-webkit-details-marker]:hidden">
+          <span className="sr-only">Toggle navigation menu</span>
+          <svg
+            viewBox="0 0 24 24"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          >
+            <path d="M4 7h16" />
+            <path d="M4 12h16" />
+            <path d="M4 17h16" />
+          </svg>
+        </summary>
+        <div className="absolute right-0 top-12 z-20 w-72 rounded-2xl border border-[var(--stroke-soft)] bg-white p-4 shadow-xl">
+          <nav className="flex flex-col gap-1">
+            {primaryNavItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="my-3 h-px bg-[var(--stroke-soft)]" />
+
+          {user ? (
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/dashboard"
+                className="rounded-full bg-[var(--brand)] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-blue-700"
+              >
+                Dashboard
+              </Link>
+              <LogoutButton className="w-full justify-center" />
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/login"
+                className="rounded-full border border-slate-300 bg-white px-4 py-2 text-center text-sm font-medium text-slate-700 transition hover:border-slate-400"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/register"
+                className="rounded-full bg-[var(--brand)] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-blue-700"
+              >
+                Create account
+              </Link>
+            </div>
+          )}
+        </div>
+      </details>
+    </>
   );
 }
