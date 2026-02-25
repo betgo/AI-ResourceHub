@@ -216,7 +216,7 @@
         "实现文件和封面上传",
         "提交后进入 pending 审核状态"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 19,
@@ -240,7 +240,7 @@
         "实现通过/拒绝操作及理由输入",
         "审核后实时更新列表"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 21,
