@@ -1,6 +1,12 @@
 import { apiError, apiSuccess } from "@/lib/api/response";
 import { getResourceById, updateResourceStatus } from "@/lib/db/resources";
 import { requireAdminUser } from "@/lib/auth/admin";
+import {
+  getZodErrorDetails,
+  getZodErrorMessage,
+  resourceIdParamSchema,
+  reviewBodySchema,
+} from "@/lib/validation/schemas";
 
 export const runtime = "nodejs";
 
@@ -10,70 +16,33 @@ type RouteContext = {
   }>;
 };
 
-type ReviewAction = "approve" | "reject";
-type ReviewBody = {
-  action: ReviewAction;
-  reason: string | null;
-};
+async function getResourceId(context: RouteContext) {
+  const params = await context.params;
+  const parsed = resourceIdParamSchema.safeParse(params);
 
-function normalizeId(value: string) {
-  return value.trim();
-}
-
-function parseReviewBody(input: unknown): { value: ReviewBody | null; error: string | null } {
-  if (!input || typeof input !== "object" || Array.isArray(input)) {
+  if (!parsed.success) {
     return {
-      value: null,
-      error: "Request body must be a JSON object.",
-    };
-  }
-
-  const body = input as Record<string, unknown>;
-
-  if (body.action !== "approve" && body.action !== "reject") {
-    return {
-      value: null,
-      error: "action must be one of approve or reject.",
-    };
-  }
-
-  if (body.reason !== undefined && body.reason !== null && typeof body.reason !== "string") {
-    return {
-      value: null,
-      error: "reason must be a string or null.",
-    };
-  }
-
-  const reason = typeof body.reason === "string" ? body.reason.trim() : null;
-
-  if (body.action === "reject" && !reason) {
-    return {
-      value: null,
-      error: "reason is required when action is reject.",
+      id: null,
+      error: parsed.error,
     };
   }
 
   return {
-    value: {
-      action: body.action,
-      reason,
-    },
+    id: parsed.data.id,
     error: null,
   };
 }
 
-async function getResourceId(context: RouteContext) {
-  const params = await context.params;
-  return normalizeId(params.id ?? "");
-}
-
 export async function POST(request: Request, context: RouteContext) {
-  const resourceId = await getResourceId(context);
+  const resourceIdResult = await getResourceId(context);
 
-  if (!resourceId) {
+  if (!resourceIdResult.id) {
     return apiError(400, {
       code: "INVALID_RESOURCE_ID",
-      message: "Resource id is required.",
+      message: resourceIdResult.error
+        ? getZodErrorMessage(resourceIdResult.error)
+        : "Resource id is required.",
+      details: resourceIdResult.error ? getZodErrorDetails(resourceIdResult.error) : undefined,
     });
   }
 
@@ -97,17 +66,20 @@ export async function POST(request: Request, context: RouteContext) {
     });
   }
 
-  const { value: payload, error } = parseReviewBody(body);
+  const payloadResult = reviewBodySchema.safeParse(body);
 
-  if (error || !payload) {
+  if (!payloadResult.success) {
     return apiError(400, {
       code: "INVALID_REQUEST_BODY",
-      message: error ?? "Invalid request body.",
+      message: getZodErrorMessage(payloadResult.error),
+      details: getZodErrorDetails(payloadResult.error),
     });
   }
 
+  const payload = payloadResult.data;
+
   try {
-    const resource = await getResourceById(resourceId);
+    const resource = await getResourceById(resourceIdResult.id);
 
     if (!resource) {
       return apiError(404, {
@@ -125,8 +97,8 @@ export async function POST(request: Request, context: RouteContext) {
 
     const reviewedResource =
       payload.action === "approve"
-        ? await updateResourceStatus(resourceId, "published")
-        : await updateResourceStatus(resourceId, "rejected", payload.reason);
+        ? await updateResourceStatus(resourceIdResult.id, "published")
+        : await updateResourceStatus(resourceIdResult.id, "rejected", payload.reason);
 
     if (!reviewedResource) {
       return apiError(404, {

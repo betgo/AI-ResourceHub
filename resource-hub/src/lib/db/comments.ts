@@ -11,6 +11,9 @@ const COMMENT_COLUMNS = "id, resource_id, user_id, content, created_at, updated_
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 20;
 const MAX_PAGE_SIZE = 100;
+const MAX_COMMENT_LENGTH = 1000;
+const HTML_TAG_REGEX = /<[^>]*>/g;
+const CONTROL_CHAR_REGEX = /[\u0000-\u001F\u007F]/g;
 
 export type CreateCommentInput = {
   resourceId: string;
@@ -43,7 +46,11 @@ function normalizeId(value: string): string {
 }
 
 function normalizeContent(value: string): string {
-  return value.trim().replace(/\s+/g, " ");
+  return value
+    .replace(HTML_TAG_REGEX, " ")
+    .replace(CONTROL_CHAR_REGEX, " ")
+    .trim()
+    .replace(/\s+/g, " ");
 }
 
 function normalizePositiveInt(value: number | undefined, fallback: number): number {
@@ -134,6 +141,10 @@ export async function createComment(input: CreateCommentInput): Promise<Comment>
     throw new Error("content cannot be empty.");
   }
 
+  if (content.length > MAX_COMMENT_LENGTH) {
+    throw new Error(`content must be at most ${MAX_COMMENT_LENGTH} characters.`);
+  }
+
   const payload: CommentInsert = {
     resource_id: resourceId,
     user_id: userId,
@@ -165,6 +176,10 @@ export async function updateComment(input: UpdateCommentInput): Promise<Comment 
 
   if (!content) {
     throw new Error("content cannot be empty.");
+  }
+
+  if (content.length > MAX_COMMENT_LENGTH) {
+    throw new Error(`content must be at most ${MAX_COMMENT_LENGTH} characters.`);
   }
 
   const patch: CommentUpdate = {

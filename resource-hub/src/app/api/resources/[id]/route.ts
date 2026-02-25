@@ -1,6 +1,13 @@
 import { apiError, apiSuccess } from "@/lib/api/response";
+import { isAdminUser } from "@/lib/auth/admin";
 import { deleteResource, getResourceById, updateResource } from "@/lib/db/resources";
 import { createClient } from "@/lib/supabase/server";
+import {
+  getZodErrorDetails,
+  getZodErrorMessage,
+  resourceIdParamSchema,
+  updateResourceBodySchema,
+} from "@/lib/validation/schemas";
 
 export const runtime = "nodejs";
 
@@ -10,100 +17,21 @@ type RouteContext = {
   }>;
 };
 
-type UpdateResourceBody = {
-  categoryId?: string | null;
-  title?: string;
-  description?: string;
-  fileUrl?: string;
-  coverUrl?: string | null;
-};
+async function getResourceId(context: RouteContext) {
+  const params = await context.params;
+  const parsed = resourceIdParamSchema.safeParse(params);
 
-function normalizeId(value: string) {
-  return value.trim();
-}
-
-function parseUpdateBody(input: unknown): { value: UpdateResourceBody | null; error: string | null } {
-  if (!input || typeof input !== "object" || Array.isArray(input)) {
+  if (!parsed.success) {
     return {
-      value: null,
-      error: "Request body must be a JSON object.",
-    };
-  }
-
-  const body = input as Record<string, unknown>;
-  const payload: UpdateResourceBody = {};
-
-  if (body.categoryId !== undefined) {
-    if (body.categoryId !== null && typeof body.categoryId !== "string") {
-      return {
-        value: null,
-        error: "categoryId must be a string or null.",
-      };
-    }
-
-    payload.categoryId = typeof body.categoryId === "string" ? body.categoryId.trim() : null;
-  }
-
-  if (body.title !== undefined) {
-    if (typeof body.title !== "string" || !body.title.trim()) {
-      return {
-        value: null,
-        error: "title must be a non-empty string.",
-      };
-    }
-
-    payload.title = body.title.trim();
-  }
-
-  if (body.description !== undefined) {
-    if (typeof body.description !== "string" || !body.description.trim()) {
-      return {
-        value: null,
-        error: "description must be a non-empty string.",
-      };
-    }
-
-    payload.description = body.description.trim();
-  }
-
-  if (body.fileUrl !== undefined) {
-    if (typeof body.fileUrl !== "string" || !body.fileUrl.trim()) {
-      return {
-        value: null,
-        error: "fileUrl must be a non-empty string.",
-      };
-    }
-
-    payload.fileUrl = body.fileUrl.trim();
-  }
-
-  if (body.coverUrl !== undefined) {
-    if (body.coverUrl !== null && typeof body.coverUrl !== "string") {
-      return {
-        value: null,
-        error: "coverUrl must be a string or null.",
-      };
-    }
-
-    payload.coverUrl = typeof body.coverUrl === "string" ? body.coverUrl.trim() : null;
-  }
-
-  if (Object.keys(payload).length === 0) {
-    return {
-      value: null,
-      error: "At least one updatable field is required.",
+      id: null,
+      error: parsed.error,
     };
   }
 
   return {
-    value: payload,
+    id: parsed.data.id,
     error: null,
   };
-}
-
-async function getResourceId(context: RouteContext) {
-  const params = await context.params;
-  return normalizeId(params.id ?? "");
 }
 
 async function requireUser() {
@@ -121,17 +49,20 @@ async function requireUser() {
 }
 
 export async function GET(_: Request, context: RouteContext) {
-  const resourceId = await getResourceId(context);
+  const resourceIdResult = await getResourceId(context);
 
-  if (!resourceId) {
+  if (!resourceIdResult.id) {
     return apiError(400, {
       code: "INVALID_RESOURCE_ID",
-      message: "Resource id is required.",
+      message: resourceIdResult.error
+        ? getZodErrorMessage(resourceIdResult.error)
+        : "Resource id is required.",
+      details: resourceIdResult.error ? getZodErrorDetails(resourceIdResult.error) : undefined,
     });
   }
 
   try {
-    const resource = await getResourceById(resourceId);
+    const resource = await getResourceById(resourceIdResult.id);
 
     if (!resource) {
       return apiError(404, {
@@ -143,7 +74,7 @@ export async function GET(_: Request, context: RouteContext) {
     if (resource.status !== "published") {
       const user = await requireUser();
 
-      if (!user || user.id !== resource.owner_id) {
+      if (!user || (user.id !== resource.owner_id && !isAdminUser(user))) {
         return apiError(403, {
           code: "FORBIDDEN",
           message: "You do not have access to this resource.",
@@ -162,12 +93,15 @@ export async function GET(_: Request, context: RouteContext) {
 }
 
 export async function PATCH(request: Request, context: RouteContext) {
-  const resourceId = await getResourceId(context);
+  const resourceIdResult = await getResourceId(context);
 
-  if (!resourceId) {
+  if (!resourceIdResult.id) {
     return apiError(400, {
       code: "INVALID_RESOURCE_ID",
-      message: "Resource id is required.",
+      message: resourceIdResult.error
+        ? getZodErrorMessage(resourceIdResult.error)
+        : "Resource id is required.",
+      details: resourceIdResult.error ? getZodErrorDetails(resourceIdResult.error) : undefined,
     });
   }
 
@@ -191,17 +125,20 @@ export async function PATCH(request: Request, context: RouteContext) {
     });
   }
 
-  const { value: payload, error } = parseUpdateBody(body);
+  const payloadResult = updateResourceBodySchema.safeParse(body);
 
-  if (error || !payload) {
+  if (!payloadResult.success) {
     return apiError(400, {
       code: "INVALID_REQUEST_BODY",
-      message: error ?? "Invalid request body.",
+      message: getZodErrorMessage(payloadResult.error),
+      details: getZodErrorDetails(payloadResult.error),
     });
   }
 
+  const payload = payloadResult.data;
+
   try {
-    const existing = await getResourceById(resourceId);
+    const existing = await getResourceById(resourceIdResult.id);
 
     if (!existing) {
       return apiError(404, {
@@ -210,16 +147,19 @@ export async function PATCH(request: Request, context: RouteContext) {
       });
     }
 
-    if (existing.owner_id !== user.id) {
+    const ownedByCurrentUser = existing.owner_id === user.id;
+    const canManage = ownedByCurrentUser || isAdminUser(user);
+
+    if (!canManage) {
       return apiError(403, {
         code: "FORBIDDEN",
-        message: "You can only update your own resources.",
+        message: "You can only update your own resources unless you are an administrator.",
       });
     }
 
     const updated = await updateResource({
-      id: resourceId,
-      ownerId: user.id,
+      id: resourceIdResult.id,
+      ownerId: ownedByCurrentUser ? user.id : undefined,
       categoryId: payload.categoryId,
       title: payload.title,
       description: payload.description,
@@ -245,12 +185,15 @@ export async function PATCH(request: Request, context: RouteContext) {
 }
 
 export async function DELETE(_: Request, context: RouteContext) {
-  const resourceId = await getResourceId(context);
+  const resourceIdResult = await getResourceId(context);
 
-  if (!resourceId) {
+  if (!resourceIdResult.id) {
     return apiError(400, {
       code: "INVALID_RESOURCE_ID",
-      message: "Resource id is required.",
+      message: resourceIdResult.error
+        ? getZodErrorMessage(resourceIdResult.error)
+        : "Resource id is required.",
+      details: resourceIdResult.error ? getZodErrorDetails(resourceIdResult.error) : undefined,
     });
   }
 
@@ -264,7 +207,26 @@ export async function DELETE(_: Request, context: RouteContext) {
   }
 
   try {
-    const deleted = await deleteResource(resourceId, user.id);
+    const existing = await getResourceById(resourceIdResult.id);
+
+    if (!existing) {
+      return apiError(404, {
+        code: "RESOURCE_NOT_FOUND",
+        message: "Resource not found.",
+      });
+    }
+
+    const ownedByCurrentUser = existing.owner_id === user.id;
+    const canManage = ownedByCurrentUser || isAdminUser(user);
+
+    if (!canManage) {
+      return apiError(403, {
+        code: "FORBIDDEN",
+        message: "You can only delete your own resources unless you are an administrator.",
+      });
+    }
+
+    const deleted = await deleteResource(resourceIdResult.id, ownedByCurrentUser ? user.id : undefined);
 
     if (!deleted) {
       return apiError(404, {
@@ -274,7 +236,7 @@ export async function DELETE(_: Request, context: RouteContext) {
     }
 
     return apiSuccess(200, {
-      id: resourceId,
+      id: resourceIdResult.id,
       deleted: true,
     });
   } catch (error) {

@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 
 import { getServerEnv } from "@/lib/env";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
+import { getZodErrorMessage, uploadFormDataSchema } from "@/lib/validation/schemas";
 
 export const runtime = "nodejs";
 
@@ -93,18 +95,6 @@ function sanitizeFileName(fileName: string) {
     .replace(/-+/g, "-");
 }
 
-function normalizeUploadKind(kindValue: FormDataEntryValue | null): UploadKind | null {
-  if (kindValue === null || kindValue === "resource") {
-    return "resource";
-  }
-
-  if (kindValue === "cover") {
-    return "cover";
-  }
-
-  return null;
-}
-
 function buildStoragePath(userId: string, kind: UploadKind, originalName: string) {
   const extension = getFileExtension(originalName);
   const baseName = sanitizeFileName(originalName.replace(/\.[^/.]+$/, "")) || "file";
@@ -126,48 +116,73 @@ export async function POST(request: Request) {
 
   try {
     const formData = await request.formData();
-    const uploadKind = normalizeUploadKind(formData.get("kind"));
+    const formDataResult = uploadFormDataSchema.safeParse({
+      kind: formData.get("kind"),
+      file: formData.get("file"),
+    });
 
-    if (!uploadKind) {
-      return jsonError(400, "INVALID_KIND", "kind must be either resource or cover.");
+    if (!formDataResult.success) {
+      return jsonError(400, "INVALID_REQUEST_BODY", getZodErrorMessage(formDataResult.error));
     }
 
-    const fileEntry = formData.get("file");
-
-    if (!(fileEntry instanceof File)) {
-      return jsonError(400, "INVALID_FILE", "file is required and must be a binary file.");
-    }
+    const { kind: uploadKind, file: fileEntry } = formDataResult.data;
+    const mimeType = fileEntry.type.trim().toLowerCase();
 
     const rule = UPLOAD_RULES[uploadKind];
+    const fileMetaResult = z
+      .object({
+        name: z.string().trim().min(1, "Uploaded file name is required."),
+        size: z
+          .number()
+          .int()
+          .positive("Uploaded file cannot be empty.")
+          .max(
+            rule.maxSize,
+            `File size exceeds the limit of ${Math.floor(rule.maxSize / MB)}MB for ${uploadKind} uploads.`,
+          ),
+        mimeType: z
+          .string()
+          .trim()
+          .min(1, "Uploaded file MIME type is required.")
+          .refine((value) => rule.allowedMimeTypes.includes(value), {
+            message: `Unsupported MIME type. Allowed: ${rule.allowedMimeTypes.join(", ")}.`,
+          }),
+      })
+      .safeParse({
+        name: fileEntry.name,
+        size: fileEntry.size,
+        mimeType,
+      });
 
-    if (fileEntry.size <= 0) {
-      return jsonError(400, "EMPTY_FILE", "Uploaded file cannot be empty.");
-    }
+    if (!fileMetaResult.success) {
+      const firstIssue = fileMetaResult.error.issues[0];
 
-    if (fileEntry.size > rule.maxSize) {
-      return jsonError(
-        400,
-        "FILE_TOO_LARGE",
-        `File size exceeds the limit of ${Math.floor(rule.maxSize / MB)}MB for ${uploadKind} uploads.`,
-      );
+      if (firstIssue?.path[0] === "size" && firstIssue.code === "too_big") {
+        return jsonError(400, "FILE_TOO_LARGE", firstIssue.message);
+      }
+
+      if (firstIssue?.path[0] === "size") {
+        return jsonError(400, "EMPTY_FILE", firstIssue.message);
+      }
+
+      if (firstIssue?.path[0] === "mimeType") {
+        return jsonError(400, "INVALID_MIME_TYPE", firstIssue.message);
+      }
+
+      return jsonError(400, "INVALID_FILE", firstIssue?.message ?? "Uploaded file is invalid.");
     }
 
     const extension = getFileExtension(fileEntry.name);
+    const extensionResult = z
+      .string()
+      .min(1, "Uploaded file extension is required.")
+      .refine((value) => rule.allowedExtensions.includes(value), {
+        message: `Unsupported file extension. Allowed: ${rule.allowedExtensions.join(", ")}.`,
+      })
+      .safeParse(extension);
 
-    if (!extension || !rule.allowedExtensions.includes(extension)) {
-      return jsonError(
-        400,
-        "INVALID_EXTENSION",
-        `Unsupported file extension. Allowed: ${rule.allowedExtensions.join(", ")}.`,
-      );
-    }
-
-    if (!fileEntry.type || !rule.allowedMimeTypes.includes(fileEntry.type)) {
-      return jsonError(
-        400,
-        "INVALID_MIME_TYPE",
-        `Unsupported MIME type. Allowed: ${rule.allowedMimeTypes.join(", ")}.`,
-      );
+    if (!extensionResult.success) {
+      return jsonError(400, "INVALID_EXTENSION", getZodErrorMessage(extensionResult.error));
     }
 
     const storagePath = buildStoragePath(user.id, uploadKind, fileEntry.name);
@@ -180,7 +195,7 @@ export async function POST(request: Request) {
       storagePath,
       fileBuffer,
       {
-        contentType: fileEntry.type,
+        contentType: mimeType,
         cacheControl: "3600",
         upsert: false,
       },
@@ -211,7 +226,7 @@ export async function POST(request: Request) {
           originalName: fileEntry.name,
           extension,
           size: fileEntry.size,
-          mimeType: fileEntry.type,
+          mimeType,
           url: accessibleUrl,
           publicUrl: publicUrlData.publicUrl,
           signedUrl: signedUrlData?.signedUrl ?? null,

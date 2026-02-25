@@ -27,7 +27,7 @@ function normalizeRole(value: unknown) {
   return normalized || null;
 }
 
-function hasAdminRoleInAppMetadata(user: User) {
+export function isAdminUser(user: User) {
   const metadata = user.app_metadata as Record<string, unknown> | null;
 
   if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) {
@@ -69,7 +69,7 @@ export async function requireAdminUser(): Promise<RequireAdminUserResult> {
     };
   }
 
-  if (!hasAdminRoleInAppMetadata(user)) {
+  if (!isAdminUser(user)) {
     return {
       user: null,
       error: {

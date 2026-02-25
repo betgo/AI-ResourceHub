@@ -2,6 +2,11 @@ import { apiError, apiSuccess } from "@/lib/api/response";
 import { createDownload } from "@/lib/db/downloads";
 import { getResourceById } from "@/lib/db/resources";
 import { createClient } from "@/lib/supabase/server";
+import {
+  getZodErrorDetails,
+  getZodErrorMessage,
+  resourceIdParamSchema,
+} from "@/lib/validation/schemas";
 
 export const runtime = "nodejs";
 
@@ -11,13 +16,21 @@ type RouteContext = {
   }>;
 };
 
-function normalizeId(value: string) {
-  return value.trim();
-}
-
 async function getResourceId(context: RouteContext) {
   const params = await context.params;
-  return normalizeId(params.id ?? "");
+  const parsed = resourceIdParamSchema.safeParse(params);
+
+  if (!parsed.success) {
+    return {
+      id: null,
+      error: parsed.error,
+    };
+  }
+
+  return {
+    id: parsed.data.id,
+    error: null,
+  };
 }
 
 async function requireUser() {
@@ -55,12 +68,15 @@ async function requirePublishedResource(resourceId: string) {
 }
 
 export async function POST(_: Request, context: RouteContext) {
-  const resourceId = await getResourceId(context);
+  const resourceIdResult = await getResourceId(context);
 
-  if (!resourceId) {
+  if (!resourceIdResult.id) {
     return apiError(400, {
       code: "INVALID_RESOURCE_ID",
-      message: "Resource id is required.",
+      message: resourceIdResult.error
+        ? getZodErrorMessage(resourceIdResult.error)
+        : "Resource id is required.",
+      details: resourceIdResult.error ? getZodErrorDetails(resourceIdResult.error) : undefined,
     });
   }
 
@@ -74,14 +90,14 @@ export async function POST(_: Request, context: RouteContext) {
   }
 
   try {
-    const guardError = await requirePublishedResource(resourceId);
+    const guardError = await requirePublishedResource(resourceIdResult.id);
 
     if (guardError) {
       return guardError;
     }
 
     const download = await createDownload({
-      resourceId,
+      resourceId: resourceIdResult.id,
       userId: user.id,
     });
 

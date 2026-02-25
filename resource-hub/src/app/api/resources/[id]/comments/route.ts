@@ -2,6 +2,12 @@ import { apiError, apiSuccess } from "@/lib/api/response";
 import { createComment, listCommentsByResource } from "@/lib/db/comments";
 import { getResourceById } from "@/lib/db/resources";
 import { createClient } from "@/lib/supabase/server";
+import {
+  createCommentBodySchema,
+  getZodErrorDetails,
+  getZodErrorMessage,
+  resourceIdParamSchema,
+} from "@/lib/validation/schemas";
 
 export const runtime = "nodejs";
 
@@ -10,14 +16,6 @@ type RouteContext = {
     id: string;
   }>;
 };
-
-type CreateCommentBody = {
-  content: string;
-};
-
-function normalizeId(value: string) {
-  return value.trim();
-}
 
 function parsePositiveInt(value: string | null) {
   if (value === null) {
@@ -32,34 +30,21 @@ function parsePositiveInt(value: string | null) {
   return parsed > 0 ? parsed : null;
 }
 
-function parseCreateBody(input: unknown): { value: CreateCommentBody | null; error: string | null } {
-  if (!input || typeof input !== "object" || Array.isArray(input)) {
-    return {
-      value: null,
-      error: "Request body must be a JSON object.",
-    };
-  }
+async function getResourceId(context: RouteContext) {
+  const params = await context.params;
+  const parsed = resourceIdParamSchema.safeParse(params);
 
-  const body = input as Record<string, unknown>;
-
-  if (typeof body.content !== "string" || !body.content.trim()) {
+  if (!parsed.success) {
     return {
-      value: null,
-      error: "content is required and must be a non-empty string.",
+      id: null,
+      error: parsed.error,
     };
   }
 
   return {
-    value: {
-      content: body.content.trim(),
-    },
+    id: parsed.data.id,
     error: null,
   };
-}
-
-async function getResourceId(context: RouteContext) {
-  const params = await context.params;
-  return normalizeId(params.id ?? "");
 }
 
 async function requireUser() {
@@ -97,12 +82,15 @@ async function requirePublishedResource(resourceId: string) {
 }
 
 export async function GET(request: Request, context: RouteContext) {
-  const resourceId = await getResourceId(context);
+  const resourceIdResult = await getResourceId(context);
 
-  if (!resourceId) {
+  if (!resourceIdResult.id) {
     return apiError(400, {
       code: "INVALID_RESOURCE_ID",
-      message: "Resource id is required.",
+      message: resourceIdResult.error
+        ? getZodErrorMessage(resourceIdResult.error)
+        : "Resource id is required.",
+      details: resourceIdResult.error ? getZodErrorDetails(resourceIdResult.error) : undefined,
     });
   }
 
@@ -125,14 +113,14 @@ export async function GET(request: Request, context: RouteContext) {
   }
 
   try {
-    const guardError = await requirePublishedResource(resourceId);
+    const guardError = await requirePublishedResource(resourceIdResult.id);
 
     if (guardError) {
       return guardError;
     }
 
     const result = await listCommentsByResource({
-      resourceId,
+      resourceId: resourceIdResult.id,
       page: page ?? undefined,
       pageSize: pageSize ?? undefined,
     });
@@ -148,12 +136,15 @@ export async function GET(request: Request, context: RouteContext) {
 }
 
 export async function POST(request: Request, context: RouteContext) {
-  const resourceId = await getResourceId(context);
+  const resourceIdResult = await getResourceId(context);
 
-  if (!resourceId) {
+  if (!resourceIdResult.id) {
     return apiError(400, {
       code: "INVALID_RESOURCE_ID",
-      message: "Resource id is required.",
+      message: resourceIdResult.error
+        ? getZodErrorMessage(resourceIdResult.error)
+        : "Resource id is required.",
+      details: resourceIdResult.error ? getZodErrorDetails(resourceIdResult.error) : undefined,
     });
   }
 
@@ -177,24 +168,27 @@ export async function POST(request: Request, context: RouteContext) {
     });
   }
 
-  const { value: payload, error } = parseCreateBody(body);
+  const payloadResult = createCommentBodySchema.safeParse(body);
 
-  if (error || !payload) {
+  if (!payloadResult.success) {
     return apiError(400, {
       code: "INVALID_REQUEST_BODY",
-      message: error ?? "Invalid request body.",
+      message: getZodErrorMessage(payloadResult.error),
+      details: getZodErrorDetails(payloadResult.error),
     });
   }
 
+  const payload = payloadResult.data;
+
   try {
-    const guardError = await requirePublishedResource(resourceId);
+    const guardError = await requirePublishedResource(resourceIdResult.id);
 
     if (guardError) {
       return guardError;
     }
 
     const comment = await createComment({
-      resourceId,
+      resourceId: resourceIdResult.id,
       userId: user.id,
       content: payload.content,
     });

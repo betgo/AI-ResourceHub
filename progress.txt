@@ -388,3 +388,20 @@
 ### Notes:
 - 构建仍提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务交付。
 - 本地环境缺少完整业务数据时，列表/详情会显示降级提示，但错误与加载态组件均可正常工作。
+
+## 2026-02-25 - Task: 安全与校验
+
+### What was done:
+- 新增 `resource-hub/src/lib/validation/schemas.ts`，引入 `zod` 并统一定义写接口校验 schema（资源创建/更新、评论创建、审核动作、上传表单、动态路由 UUID 参数）。
+- 改造写接口路由为 schema 校验：`/api/resources`、`/api/resources/[id]`（PATCH/DELETE）、`/api/resources/[id]/comments`、`/api/resources/[id]/favorite`、`/api/resources/[id]/download`、`/api/admin/resources/[id]/review`、`/api/upload`。
+- 强化服务端权限边界：在资源详情与编辑/删除中增加 owner/admin 双重校验；资源列表接口对非 admin 的 `pending/rejected` 查询默认收敛为仅本人数据，避免越权查看他人未发布资源。
+- 上传接口强化 MIME/扩展名/大小限制：通过 zod 统一校验 `kind`、文件元信息（name/size/mimeType），并返回更明确错误码。
+- 评论安全增强：在 `resource-hub/src/lib/db/comments.ts` 增加基础清洗（移除 HTML tag 与控制字符）和长度上限（1000）双重保护。
+- 在 `resource-hub/src/lib/auth/admin.ts` 导出 `isAdminUser`，复用统一 admin 角色判定逻辑。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+
+### Notes:
+- 构建阶段仍提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务通过。

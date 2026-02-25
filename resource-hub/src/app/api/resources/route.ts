@@ -1,23 +1,25 @@
 import { apiError, apiSuccess } from "@/lib/api/response";
+import { isAdminUser } from "@/lib/auth/admin";
 import {
   createResource,
+  deleteResource,
   listResources,
   type ListResourcesParams,
+  replaceResourceTags,
   type ResourceSortBy,
 } from "@/lib/db/resources";
+import { createTags } from "@/lib/db/tags";
 import { createClient } from "@/lib/supabase/server";
+import {
+  createResourceBodySchema,
+  getZodErrorDetails,
+  getZodErrorMessage,
+} from "@/lib/validation/schemas";
 import type { Database } from "@/types/database";
 
 export const runtime = "nodejs";
 
 type ResourceStatus = Database["public"]["Enums"]["resource_status"];
-type CreateResourceBody = {
-  categoryId?: string | null;
-  title: string;
-  description: string;
-  fileUrl: string;
-  coverUrl?: string | null;
-};
 
 const RESOURCE_SORT_VALUES: ResourceSortBy[] = ["latest", "hot", "downloads"];
 const RESOURCE_STATUS_VALUES: ResourceStatus[] = ["pending", "published", "rejected"];
@@ -69,65 +71,6 @@ function parseStringList(searchParams: URLSearchParams, key: string) {
   return [...new Set(values)];
 }
 
-function parseCreateBody(input: unknown): { value: CreateResourceBody | null; error: string | null } {
-  if (!input || typeof input !== "object" || Array.isArray(input)) {
-    return {
-      value: null,
-      error: "Request body must be a JSON object.",
-    };
-  }
-
-  const body = input as Record<string, unknown>;
-
-  if (body.categoryId !== undefined && body.categoryId !== null && typeof body.categoryId !== "string") {
-    return {
-      value: null,
-      error: "categoryId must be a string or null.",
-    };
-  }
-
-  if (typeof body.title !== "string" || !body.title.trim()) {
-    return {
-      value: null,
-      error: "title is required and must be a non-empty string.",
-    };
-  }
-
-  if (typeof body.description !== "string" || !body.description.trim()) {
-    return {
-      value: null,
-      error: "description is required and must be a non-empty string.",
-    };
-  }
-
-  if (typeof body.fileUrl !== "string" || !body.fileUrl.trim()) {
-    return {
-      value: null,
-      error: "fileUrl is required and must be a non-empty string.",
-    };
-  }
-
-  if (body.coverUrl !== undefined && body.coverUrl !== null && typeof body.coverUrl !== "string") {
-    return {
-      value: null,
-      error: "coverUrl must be a string or null.",
-    };
-  }
-
-  const payload: CreateResourceBody = {
-    categoryId: typeof body.categoryId === "string" ? body.categoryId.trim() : body.categoryId ?? undefined,
-    title: body.title.trim(),
-    description: body.description.trim(),
-    fileUrl: body.fileUrl.trim(),
-    coverUrl: typeof body.coverUrl === "string" ? body.coverUrl.trim() : body.coverUrl ?? undefined,
-  };
-
-  return {
-    value: payload,
-    error: null,
-  };
-}
-
 async function getOptionalUser() {
   const supabase = await createClient();
   const {
@@ -175,6 +118,7 @@ export async function GET(request: Request) {
 
   try {
     const user = await getOptionalUser();
+    const userIsAdmin = user ? isAdminUser(user) : false;
     const listParams: ListResourcesParams = {
       page,
       pageSize,
@@ -195,6 +139,10 @@ export async function GET(request: Request) {
       }
 
       listParams.status = status;
+
+      if (!ownerId && !userIsAdmin) {
+        listParams.ownerId = user.id;
+      }
     } else if (status === "published") {
       listParams.status = "published";
     }
@@ -207,10 +155,10 @@ export async function GET(request: Request) {
         });
       }
 
-      if (ownerId !== user.id) {
+      if (ownerId !== user.id && !userIsAdmin) {
         return apiError(403, {
           code: "FORBIDDEN",
-          message: "You can only query your own resources.",
+          message: "You can only query your own resources unless you are an administrator.",
         });
       }
 
@@ -258,14 +206,17 @@ export async function POST(request: Request) {
     });
   }
 
-  const { value: payload, error } = parseCreateBody(body);
+  const payloadResult = createResourceBodySchema.safeParse(body);
 
-  if (error || !payload) {
+  if (!payloadResult.success) {
     return apiError(400, {
       code: "INVALID_REQUEST_BODY",
-      message: error ?? "Invalid request body.",
+      message: getZodErrorMessage(payloadResult.error),
+      details: getZodErrorDetails(payloadResult.error),
     });
   }
+
+  const payload = payloadResult.data;
 
   try {
     const resource = await createResource({
@@ -277,6 +228,19 @@ export async function POST(request: Request) {
       coverUrl: payload.coverUrl,
       status: "pending",
     });
+
+    try {
+      if (payload.tags.length > 0) {
+        const tags = await createTags(payload.tags);
+        await replaceResourceTags(
+          resource.id,
+          tags.map((tag) => tag.id),
+        );
+      }
+    } catch (tagError) {
+      await deleteResource(resource.id, user.id).catch(() => null);
+      throw tagError;
+    }
 
     return apiSuccess(201, resource);
   } catch (err) {
