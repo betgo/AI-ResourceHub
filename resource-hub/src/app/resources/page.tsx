@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { AlertMessage } from "@/components/feedback/alert-message";
 import { Container } from "@/components/layout/container";
 import { listCategories } from "@/lib/db/categories";
 import {
@@ -309,10 +310,20 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
         </section>
 
         {loadErrors.length > 0 ? (
-          <section className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-            Some data is temporarily unavailable. Please check environment setup and
-            database migrations.
-          </section>
+          <AlertMessage
+            variant="warning"
+            title="Partial data unavailable"
+            message={
+              <div className="space-y-1">
+                <p>Please check environment setup and database migrations.</p>
+                <ul className="list-disc pl-5">
+                  {loadErrors.map((errorMessage) => (
+                    <li key={errorMessage}>{errorMessage}</li>
+                  ))}
+                </ul>
+              </div>
+            }
+          />
         ) : null}
 
         {resourcesResult.items.length > 0 ? (

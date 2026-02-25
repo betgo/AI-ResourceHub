@@ -370,3 +370,21 @@
 ### Notes:
 - 当前 Supabase 环境下待审核数据查询与分类元数据查询返回异常，页面会显示降级提示（`Failed to load pending resources. Failed to load category metadata.`）；不影响本任务 UI 结构与审核交互代码交付。
 - 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务交付。
+
+## 2026-02-25 - Task: 错误和加载态
+
+### What was done:
+- 新增 `resource-hub/src/app/error.tsx`、`resource-hub/src/app/not-found.tsx` 与 `resource-hub/src/app/loading.tsx`，补齐全局错误页、404 页与应用级加载态。
+- 新增 `resource-hub/src/components/skeleton/skeleton-block.tsx`，并在 `resource-hub/src/app/resources/loading.tsx`、`resource-hub/src/app/resources/[id]/loading.tsx` 落地列表页与详情页 Skeleton。
+- 新增统一反馈组件 `resource-hub/src/components/feedback/alert-message.tsx` 与 `resource-hub/src/components/feedback/toast-provider.tsx`，并在 `resource-hub/src/app/layout.tsx` 挂载全局 ToastProvider。
+- 将资源列表页、资源详情页及详情互动区的散落提示统一为 `AlertMessage`；同步在登录表单和资源编辑表单接入 Toast + Alert 一致反馈样式。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+- 使用 Playwright MCP 访问 `http://127.0.0.1:3000/resources`，确认列表页错误提示改为统一 Alert 组件并可正常渲染: pass
+- 使用 Playwright MCP 访问 `http://127.0.0.1:3000/resources/invalid-id` 与 `http://127.0.0.1:3000/this-page-should-not-exist`，确认 not-found 页面正确渲染: pass
+
+### Notes:
+- 构建仍提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务交付。
+- 本地环境缺少完整业务数据时，列表/详情会显示降级提示，但错误与加载态组件均可正常工作。

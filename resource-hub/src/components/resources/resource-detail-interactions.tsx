@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 
+import { AlertMessage } from "@/components/feedback/alert-message";
 import { cn } from "@/lib/utils";
 
 type CommentItem = {
@@ -285,9 +286,7 @@ export function ResourceDetailInteractions({
         </p>
       ) : null}
 
-      {actionError ? (
-        <p className="rounded-xl bg-red-100 px-3 py-2 text-sm text-red-700">{actionError}</p>
-      ) : null}
+      {actionError ? <AlertMessage variant="error" message={actionError} className="px-3 py-2" /> : null}
 
       <div className="space-y-4">
         <div className="flex items-center justify-between gap-3">
@@ -296,7 +295,7 @@ export function ResourceDetailInteractions({
         </div>
 
         {commentError ? (
-          <p className="rounded-xl bg-red-100 px-3 py-2 text-sm text-red-700">{commentError}</p>
+          <AlertMessage variant="error" message={commentError} className="px-3 py-2" />
         ) : null}
 
         <form onSubmit={handleCommentSubmit} className="space-y-3">

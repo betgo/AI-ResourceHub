@@ -252,7 +252,7 @@
         "实现 Toast/Alert 统一错误反馈",
         "列表和详情增加 Skeleton"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 22,

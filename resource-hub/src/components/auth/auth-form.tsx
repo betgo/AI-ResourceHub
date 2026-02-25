@@ -4,8 +4,9 @@ import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { AlertMessage } from "@/components/feedback/alert-message";
+import { useToast } from "@/components/feedback/toast-provider";
 import { createClient } from "@/lib/supabase/client";
-import { cn } from "@/lib/utils";
 
 type AuthMode = "login" | "register";
 
@@ -58,6 +59,7 @@ function getSafeNextPath(nextPath: string | null | undefined) {
 
 export function AuthForm({ mode, nextPath }: AuthFormProps) {
   const router = useRouter();
+  const { showToast } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -93,6 +95,11 @@ export function AuthForm({ mode, nextPath }: AuthFormProps) {
 
       if (error) {
         setErrorMessage(error.message);
+        showToast({
+          title: "Authentication failed",
+          message: error.message,
+          variant: "error",
+        });
         setIsSubmitting(false);
         return;
       }
@@ -109,6 +116,11 @@ export function AuthForm({ mode, nextPath }: AuthFormProps) {
 
     if (error) {
       setErrorMessage(error.message);
+      showToast({
+        title: "Registration failed",
+        message: error.message,
+        variant: "error",
+      });
       setIsSubmitting(false);
       return;
     }
@@ -122,6 +134,11 @@ export function AuthForm({ mode, nextPath }: AuthFormProps) {
     setSuccessMessage(
       "Registration submitted. Check your email for a confirmation link before logging in.",
     );
+    showToast({
+      title: "Registration submitted",
+      message: "Please check your mailbox for the confirmation link.",
+      variant: "success",
+    });
     setIsSubmitting(false);
   };
 
@@ -174,16 +191,11 @@ export function AuthForm({ mode, nextPath }: AuthFormProps) {
         </div>
 
         {(errorMessage ?? successMessage) && (
-          <p
-            className={cn(
-              "rounded-xl px-3 py-2 text-sm",
-              errorMessage
-                ? "bg-red-100 text-red-700"
-                : "bg-emerald-100 text-emerald-700",
-            )}
-          >
-            {errorMessage ?? successMessage}
-          </p>
+          <AlertMessage
+            variant={errorMessage ? "error" : "success"}
+            message={errorMessage ?? successMessage ?? ""}
+            className="px-3 py-2"
+          />
         )}
 
         <button

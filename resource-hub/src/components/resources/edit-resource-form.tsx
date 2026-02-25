@@ -4,6 +4,9 @@ import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import { AlertMessage } from "@/components/feedback/alert-message";
+import { useToast } from "@/components/feedback/toast-provider";
+
 type CategoryOption = {
   id: string;
   name: string;
@@ -47,6 +50,7 @@ export function EditResourceForm({
   initialValue,
 }: EditResourceFormProps) {
   const router = useRouter();
+  const { showToast } = useToast();
   const [title, setTitle] = useState(initialValue.title);
   const [description, setDescription] = useState(initialValue.description);
   const [categoryId, setCategoryId] = useState(initialValue.categoryId ?? "");
@@ -76,16 +80,31 @@ export function EditResourceForm({
 
     if (!normalizedTitle) {
       setSubmitError("Title is required.");
+      showToast({
+        title: "Validation error",
+        message: "Title is required.",
+        variant: "error",
+      });
       return;
     }
 
     if (!normalizedDescription) {
       setSubmitError("Description is required.");
+      showToast({
+        title: "Validation error",
+        message: "Description is required.",
+        variant: "error",
+      });
       return;
     }
 
     if (!normalizedFileUrl) {
       setSubmitError("File URL is required.");
+      showToast({
+        title: "Validation error",
+        message: "File URL is required.",
+        variant: "error",
+      });
       return;
     }
 
@@ -119,6 +138,11 @@ export function EditResourceForm({
 
     if (Object.keys(payload).length === 0) {
       setSubmitError("No changes to save.");
+      showToast({
+        title: "No changes detected",
+        message: "Update at least one field before saving.",
+        variant: "info",
+      });
       return;
     }
 
@@ -141,10 +165,20 @@ export function EditResourceForm({
       }
 
       setSubmitSuccess("Resource updated successfully.");
+      showToast({
+        title: "Update completed",
+        message: "The resource changes have been saved.",
+        variant: "success",
+      });
       router.refresh();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown update error.";
       setSubmitError(errorMessage);
+      showToast({
+        title: "Update failed",
+        message: errorMessage,
+        variant: "error",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -225,15 +259,11 @@ export function EditResourceForm({
       </div>
 
       {submitError ? (
-        <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
-          {submitError}
-        </div>
+        <AlertMessage message={submitError} variant="error" className="px-4 py-2" />
       ) : null}
 
       {submitSuccess ? (
-        <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">
-          {submitSuccess}
-        </div>
+        <AlertMessage message={submitSuccess} variant="success" className="px-4 py-2" />
       ) : null}
 
       <div className="flex flex-wrap items-center gap-3">

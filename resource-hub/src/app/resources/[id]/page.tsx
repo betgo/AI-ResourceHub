@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { AlertMessage } from "@/components/feedback/alert-message";
 import { ResourceDetailInteractions } from "@/components/resources/resource-detail-interactions";
 import { Container } from "@/components/layout/container";
 import { listCategories } from "@/lib/db/categories";
@@ -161,9 +162,20 @@ export default async function ResourceDetailPage({ params }: PageProps) {
         </section>
 
         {loadWarnings.length > 0 ? (
-          <section className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-            Some metadata is temporarily unavailable.
-          </section>
+          <AlertMessage
+            variant="warning"
+            title="Partial metadata unavailable"
+            message={
+              <div className="space-y-1">
+                <p>Some metadata is temporarily unavailable.</p>
+                <ul className="list-disc pl-5">
+                  {loadWarnings.map((warningMessage) => (
+                    <li key={warningMessage}>{warningMessage}</li>
+                  ))}
+                </ul>
+              </div>
+            }
+          />
         ) : null}
 
         <section className="overflow-hidden rounded-2xl border border-[var(--stroke-soft)] bg-white shadow-sm">
