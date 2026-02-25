@@ -276,7 +276,7 @@
         "详情页 metadata 和 Open Graph",
         "关键页面 Lighthouse 自检并修复主要问题"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 24,

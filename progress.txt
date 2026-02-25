@@ -405,3 +405,23 @@
 
 ### Notes:
 - 构建阶段仍提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务通过。
+
+## 2026-02-25 - Task: 性能与 SEO 优化
+
+### What was done:
+- 新增索引迁移 `resource-hub/supabase/migrations/20260225183000_optimize_resource_listing_indexes.sql`，为 `published/latest/hot/downloads` 列表场景补齐组合索引，并补充 `resource_tags(tag_id, resource_id)` 索引以优化标签筛选。
+- 在 `resource-hub/src/app/resources/page.tsx` 增加 `revalidate` 与页面级 metadata（description/canonical），并通过 `getCategoryBySlug` 精确解析筛选分类，减少无效查询路径。
+- 在 `resource-hub/src/app/resources/[id]/page.tsx` 增加 `generateMetadata`（canonical/Open Graph/Twitter Card）并用 `cache` 复用资源查询，避免详情页与 metadata 重复请求。
+- 在 `resource-hub/src/app/page.tsx`、`resource-hub/src/app/resources/page.tsx`、`resource-hub/src/app/resources/[id]/page.tsx` 将封面渲染统一为 `next/image`，补充 `sizes` 与首屏优先策略，优化图片加载性能。
+- 在 `resource-hub/src/app/layout.tsx` 与 `resource-hub/next.config.ts` 增强全站 metadataBase/OpenGraph 配置与图片格式优化（AVIF/WebP）。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+- 运行 Lighthouse（production 模式）:
+  - `http://127.0.0.1:3000`：Performance 98 / Accessibility 90 / Best Practices 100 / SEO 100
+  - `http://127.0.0.1:3000/resources`：Performance 97 / Accessibility 96 / Best Practices 100 / SEO 100
+
+### Notes:
+- Lighthouse 自检显示性能与 SEO 关键指标达标；主要剩余问题集中在部分色彩对比与触控目标尺寸（Accessibility），不阻塞本任务目标。
+- 构建阶段仍提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务通过。

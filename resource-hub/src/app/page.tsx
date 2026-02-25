@@ -1,10 +1,21 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { listCategories } from "@/lib/db/categories";
 import { listResources } from "@/lib/db/resources";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Discover practical templates, datasets, and toolkits on ResourceHub.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 const fallbackCategories = [
   { id: "design", name: "Design Assets", slug: "design-assets" },
@@ -161,6 +172,18 @@ export default async function Home() {
                   key={resource.id}
                   className="rounded-2xl border border-[var(--stroke-soft)] bg-white p-5 shadow-sm"
                 >
+                  {resource.cover_url ? (
+                    <div className="relative mb-4 overflow-hidden rounded-xl border border-[var(--stroke-soft)] bg-slate-100">
+                      <Image
+                        src={resource.cover_url}
+                        alt={`${resource.title} cover`}
+                        width={640}
+                        height={360}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                        className="h-40 w-full object-cover"
+                      />
+                    </div>
+                  ) : null}
                   <p className="text-xs font-medium text-[var(--text-muted)]">
                     {formatDateLabel(resource.published_at ?? resource.created_at)}
                   </p>

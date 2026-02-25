@@ -14,6 +14,19 @@ export const metadata: Metadata = {
     template: "%s | ResourceHub",
   },
   description: "Discover and publish high-quality digital resources.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  applicationName: "ResourceHub",
+  openGraph: {
+    type: "website",
+    title: "ResourceHub",
+    description: "Discover and publish high-quality digital resources.",
+    url: "/",
+  },
+  twitter: {
+    card: "summary",
+    title: "ResourceHub",
+    description: "Discover and publish high-quality digital resources.",
+  },
 };
 
 export default function RootLayout({

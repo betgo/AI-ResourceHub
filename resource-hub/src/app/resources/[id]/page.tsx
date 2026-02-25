@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
 import { AlertMessage } from "@/components/feedback/alert-message";
 import { ResourceDetailInteractions } from "@/components/resources/resource-detail-interactions";
@@ -54,8 +57,78 @@ function toLoginHref(resourceId: string) {
   return `/login?next=${encodeURIComponent(nextPath)}`;
 }
 
-function toCoverBackground(url: string) {
-  return `url("${url.replaceAll('"', "%22")}")`;
+function summarizeText(input: string, maxLength: number) {
+  if (input.length <= maxLength) {
+    return input;
+  }
+
+  return `${input.slice(0, maxLength).trimEnd()}...`;
+}
+
+const getPublishedResourceById = cache(async (resourceId: string) => {
+  const normalizedResourceId = normalizeId(resourceId);
+
+  if (!normalizedResourceId) {
+    return null;
+  }
+
+  try {
+    const resource = await getResourceById(normalizedResourceId);
+
+    if (!resource || resource.status !== "published") {
+      return null;
+    }
+
+    return resource;
+  } catch {
+    return null;
+  }
+});
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const resource = await getPublishedResourceById(resolvedParams.id ?? "");
+
+  if (!resource) {
+    return {
+      title: "Resource not found",
+      description: "The requested resource does not exist or is unavailable.",
+    };
+  }
+
+  const description = summarizeText(resource.description, 160);
+  const canonicalPath = `/resources/${resource.id}`;
+  const openGraphImages = resource.cover_url
+    ? [
+        {
+          url: resource.cover_url,
+          width: 1200,
+          height: 630,
+          alt: `${resource.title} cover`,
+        },
+      ]
+    : undefined;
+
+  return {
+    title: resource.title,
+    description,
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      title: resource.title,
+      description,
+      type: "article",
+      url: canonicalPath,
+      images: openGraphImages,
+    },
+    twitter: {
+      card: resource.cover_url ? "summary_large_image" : "summary",
+      title: resource.title,
+      description,
+      images: resource.cover_url ? [resource.cover_url] : undefined,
+    },
+  };
 }
 
 export default async function ResourceDetailPage({ params }: PageProps) {
@@ -66,15 +139,9 @@ export default async function ResourceDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  let resource = null;
+  const resource = await getPublishedResourceById(resourceId);
 
-  try {
-    resource = await getResourceById(resourceId);
-  } catch {
-    notFound();
-  }
-
-  if (!resource || resource.status !== "published") {
+  if (!resource) {
     notFound();
   }
 
@@ -180,14 +247,16 @@ export default async function ResourceDetailPage({ params }: PageProps) {
 
         <section className="overflow-hidden rounded-2xl border border-[var(--stroke-soft)] bg-white shadow-sm">
           {resource.cover_url ? (
-            <div
-              role="img"
-              aria-label={`${resource.title} cover`}
-              className="h-64 w-full bg-cover bg-center sm:h-80"
-              style={{
-                backgroundImage: toCoverBackground(resource.cover_url),
-              }}
-            />
+            <div className="relative h-64 w-full sm:h-80">
+              <Image
+                src={resource.cover_url}
+                alt={`${resource.title} cover`}
+                fill
+                priority
+                sizes="(max-width: 640px) 100vw, 1024px"
+                className="object-cover"
+              />
+            </div>
           ) : (
             <div className="flex h-64 w-full items-center justify-center bg-slate-100 text-sm text-[var(--text-muted)] sm:h-80">
               No cover image uploaded

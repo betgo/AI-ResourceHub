@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { AlertMessage } from "@/components/feedback/alert-message";
 import { Container } from "@/components/layout/container";
-import { listCategories } from "@/lib/db/categories";
+import { getCategoryBySlug, listCategories } from "@/lib/db/categories";
 import {
   listResources,
   type ListResourcesResult,
@@ -11,7 +13,16 @@ import {
 import { listTags } from "@/lib/db/tags";
 import { slugify } from "@/lib/slug";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 120;
+
+export const metadata: Metadata = {
+  title: "Resources",
+  description:
+    "Search, filter, and discover curated resources by category, tags, and popularity.",
+  alternates: {
+    canonical: "/resources",
+  },
+};
 
 const PAGE_SIZE = 12;
 const TAG_FILTER_LIMIT = 16;
@@ -152,9 +163,10 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
   const resolvedSearchParams = (await searchParams) ?? {};
   const filters = parseFilters(resolvedSearchParams);
   const loadErrors: string[] = [];
-  const [categoriesResult, tagsResult] = await Promise.allSettled([
+  const [categoriesResult, tagsResult, selectedCategoryResult] = await Promise.allSettled([
     listCategories(),
     listTags(TAG_FILTER_LIMIT),
+    filters.categorySlug ? getCategoryBySlug(filters.categorySlug) : Promise.resolve(null),
   ]);
   const categories = categoriesResult.status === "fulfilled" ? categoriesResult.value : [];
   const tags = tagsResult.status === "fulfilled" ? tagsResult.value : [];
@@ -167,7 +179,17 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
     loadErrors.push("Failed to load tags.");
   }
 
-  const selectedCategory = categories.find((category) => category.slug === filters.categorySlug);
+  const selectedCategory =
+    selectedCategoryResult.status === "fulfilled"
+      ? selectedCategoryResult.value ??
+        categories.find((category) => category.slug === filters.categorySlug) ??
+        null
+      : categories.find((category) => category.slug === filters.categorySlug) ?? null;
+
+  if (selectedCategoryResult.status === "rejected") {
+    loadErrors.push("Failed to resolve selected category.");
+  }
+
   let resourcesResult: ListResourcesResult = {
     items: [],
     total: 0,
@@ -334,6 +356,18 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                   key={resource.id}
                   className="rounded-2xl border border-[var(--stroke-soft)] bg-white p-5 shadow-sm"
                 >
+                  {resource.cover_url ? (
+                    <div className="relative mb-4 overflow-hidden rounded-xl border border-[var(--stroke-soft)] bg-slate-100">
+                      <Image
+                        src={resource.cover_url}
+                        alt={`${resource.title} cover`}
+                        width={640}
+                        height={360}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                        className="h-40 w-full object-cover"
+                      />
+                    </div>
+                  ) : null}
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-xs font-medium text-[var(--text-muted)]">
                       {formatDateLabel(resource.published_at ?? resource.created_at)}
