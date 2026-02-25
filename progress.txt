@@ -273,3 +273,22 @@
 
 ### Notes:
 - `Browse` 相关链接当前指向 `/resources`，完整列表页能力将在后续 Task 16 交付。
+
+## 2026-02-25 - Task: 资源列表页 UI
+
+### What was done:
+- 新增 `resource-hub/src/app/resources/page.tsx`，实现 `/resources` 页面主结构与说明区。
+- 实现关键字搜索、分类筛选、标签筛选（多选 tag checkbox）与排序（Latest / Most Favorited / Most Downloaded）。
+- 实现分页参数与导航（Previous / Next），并保持筛选条件在分页跳转中的查询串同步。
+- 实现资源卡片列表展示（标题、描述摘要、发布时间、收藏/下载统计、详情入口）与空状态视图。
+- 补充数据层容错：分类/标签/资源查询失败时降级为空数据并显示提示，避免页面直接 500。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+- 使用 Playwright CLI 访问 `http://localhost:3000/resources`，核验页面元素（Keyword/Sort/Category/Apply filters）: pass
+- 使用 Playwright CLI 填写关键词并提交，确认 URL 查询串更新为 `?keyword=design+system&sortBy=latest&category=`，且有筛选空状态与 `Clear filters` 入口: pass
+
+### Notes:
+- 本地 Supabase 环境当前缺少部分表时，页面会显示数据不可用提示并降级展示空列表；待迁移执行完成后可恢复完整数据展示。
+- 构建仍会提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务交付。
