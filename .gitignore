@@ -1,5 +1,7 @@
 # Playwright MCP
 .playwright-mcp/
+.playwright-cli/
+output/
 
 # Dependencies
 node_modules/

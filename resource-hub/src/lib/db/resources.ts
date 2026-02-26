@@ -7,6 +7,7 @@ import type { Database } from "@/types/database";
 type Resource = Database["public"]["Tables"]["resources"]["Row"];
 type ResourceInsert = Database["public"]["Tables"]["resources"]["Insert"];
 type ResourceUpdate = Database["public"]["Tables"]["resources"]["Update"];
+type ResourceTagInsert = Database["public"]["Tables"]["resource_tags"]["Insert"];
 type ResourceStatus = Database["public"]["Enums"]["resource_status"];
 
 const DEFAULT_PAGE = 1;
@@ -353,6 +354,39 @@ export async function deleteResource(resourceId: string, ownerId?: string): Prom
   }
 
   return Boolean(data);
+}
+
+export async function replaceResourceTags(resourceId: string, tagIds: string[]): Promise<void> {
+  const normalizedResourceId = normalizeId(resourceId);
+
+  if (!normalizedResourceId) {
+    throw new Error("resourceId is required.");
+  }
+
+  const normalizedTagIds = dedupeStrings(tagIds).map((tagId) => normalizeId(tagId));
+  const admin = createAdminClient();
+  const { error: deleteError } = await admin
+    .from("resource_tags")
+    .delete()
+    .eq("resource_id", normalizedResourceId);
+
+  if (deleteError) {
+    throw new Error(`Failed to delete existing resource tags: ${deleteError.message}`);
+  }
+
+  if (normalizedTagIds.length === 0) {
+    return;
+  }
+
+  const insertPayload: ResourceTagInsert[] = normalizedTagIds.map((tagId) => ({
+    resource_id: normalizedResourceId,
+    tag_id: tagId,
+  }));
+  const { error: insertError } = await admin.from("resource_tags").insert(insertPayload);
+
+  if (insertError) {
+    throw new Error(`Failed to insert resource tags: ${insertError.message}`);
+  }
 }
 
 export async function updateResourceStatus(

@@ -36,24 +36,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("min-h-screen text-slate-900")}>
+      <body className={cn("min-h-screen text-[var(--text-primary)]")}>
         <ToastProvider>
           <div className="relative flex min-h-screen flex-col">
-            <header className="border-b border-[var(--stroke-soft)] bg-white/80 backdrop-blur">
+            <header className="sticky top-0 z-40 border-b border-[var(--stroke-soft)] bg-[color:color-mix(in_oklab,var(--surface-elevated)_88%,white_12%)]/92 shadow-[0_12px_26px_rgba(10,33,57,0.09)] backdrop-blur-md">
               <Container className="flex h-16 items-center justify-between gap-4">
                 <Link href="/" className="space-y-0.5">
-                  <div className="text-sm font-semibold tracking-wide text-slate-800">
+                  <div className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--brand)]">
                     ResourceHub
                   </div>
                   <p className="hidden text-xs text-[var(--text-muted)] sm:block">
-                    Share. Discover. Build.
+                    Curated assets for product teams
                   </p>
                 </Link>
                 <AuthNav />
               </Container>
             </header>
             <main className="flex-1">{children}</main>
-            <footer className="border-t border-[var(--stroke-soft)] py-4 text-center text-xs text-[var(--text-muted)]">
+            <footer className="border-t border-[var(--stroke-soft)] bg-[color:color-mix(in_oklab,var(--surface-muted)_78%,white_22%)] py-5 text-center text-xs text-[var(--text-muted)]">
               <Container>Built with Next.js + Supabase.</Container>
             </footer>
           </div>

@@ -143,12 +143,12 @@ export function AuthForm({ mode, nextPath }: AuthFormProps) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-3xl border border-[var(--stroke-soft)] bg-[var(--surface-elevated)] p-7 shadow-sm sm:p-8">
+    <div className="mx-auto w-full max-w-md rounded-3xl border border-[var(--stroke-soft)] bg-[var(--surface-card)] p-7 shadow-[var(--shadow-strong)] sm:p-8">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
+        <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
           {copy.title}
         </h1>
-        <p className="text-sm leading-6 text-[var(--text-muted)]">
+        <p className="text-sm leading-6 text-(--text-muted)">
           {copy.description}
         </p>
       </div>
@@ -165,7 +165,7 @@ export function AuthForm({ mode, nextPath }: AuthFormProps) {
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)]"
+            className="w-full rounded-xl border border-[var(--stroke-soft)] bg-[var(--surface-elevated)] px-3 py-2.5 text-sm outline-none transition focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)]"
             placeholder="you@example.com"
           />
         </div>
@@ -185,7 +185,7 @@ export function AuthForm({ mode, nextPath }: AuthFormProps) {
             minLength={8}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)]"
+            className="w-full rounded-xl border border-[var(--stroke-soft)] bg-[var(--surface-elevated)] px-3 py-2.5 text-sm outline-none transition focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)]"
             placeholder="At least 8 characters"
           />
         </div>
@@ -201,7 +201,7 @@ export function AuthForm({ mode, nextPath }: AuthFormProps) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex w-full items-center justify-center rounded-full bg-[var(--brand)] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex w-full items-center justify-center rounded-full bg-[var(--brand)] px-4 py-2.5 text-sm font-semibold text-[var(--text-inverse)] transition hover:bg-[var(--brand-strong)] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isSubmitting ? "Please wait..." : copy.submitLabel}
         </button>

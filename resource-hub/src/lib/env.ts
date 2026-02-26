@@ -1,20 +1,10 @@
-const PUBLIC_ENV_KEYS = [
-  "NEXT_PUBLIC_SUPABASE_URL",
-  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-] as const;
+type RequiredEnvKey =
+  | "NEXT_PUBLIC_SUPABASE_URL"
+  | "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  | "SUPABASE_SERVICE_ROLE_KEY"
+  | "SUPABASE_STORAGE_BUCKET";
 
-const SERVER_ENV_KEYS = [
-  "SUPABASE_SERVICE_ROLE_KEY",
-  "SUPABASE_STORAGE_BUCKET",
-] as const;
-
-type PublicEnvKey = (typeof PUBLIC_ENV_KEYS)[number];
-type ServerEnvKey = (typeof SERVER_ENV_KEYS)[number];
-type RequiredEnvKey = PublicEnvKey | ServerEnvKey;
-
-function readRequiredEnv(key: RequiredEnvKey): string {
-  const value = process.env[key];
-
+function readRequiredEnv(key: RequiredEnvKey, value: string | undefined): string {
   if (!value) {
     throw new Error(`Missing required environment variable: ${key}`);
   }
@@ -22,23 +12,29 @@ function readRequiredEnv(key: RequiredEnvKey): string {
   return value;
 }
 
-function buildValidatedEnv<T extends readonly RequiredEnvKey[]>(
-  keys: T,
-): Record<T[number], string> {
-  return keys.reduce(
-    (accumulator, key) => ({
-      ...accumulator,
-      [key]: readRequiredEnv(key),
-    }),
-    {} as Record<T[number], string>,
-  );
-}
-
-export const publicEnv = Object.freeze(buildValidatedEnv(PUBLIC_ENV_KEYS));
+export const publicEnv = Object.freeze({
+  NEXT_PUBLIC_SUPABASE_URL: readRequiredEnv(
+    "NEXT_PUBLIC_SUPABASE_URL",
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+  ),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: readRequiredEnv(
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  ),
+});
 
 const serverEnv =
   typeof window === "undefined"
-    ? Object.freeze(buildValidatedEnv(SERVER_ENV_KEYS))
+    ? Object.freeze({
+        SUPABASE_SERVICE_ROLE_KEY: readRequiredEnv(
+          "SUPABASE_SERVICE_ROLE_KEY",
+          process.env.SUPABASE_SERVICE_ROLE_KEY,
+        ),
+        SUPABASE_STORAGE_BUCKET: readRequiredEnv(
+          "SUPABASE_STORAGE_BUCKET",
+          process.env.SUPABASE_STORAGE_BUCKET,
+        ),
+      })
     : null;
 
 export function getServerEnv() {

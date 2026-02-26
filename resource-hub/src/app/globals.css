@@ -1,13 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --surface: #f2f4f8;
-  --surface-elevated: #ffffff;
-  --stroke-soft: rgba(15, 23, 42, 0.12);
-  --text-primary: #0f172a;
-  --text-muted: #475569;
-  --brand: #1d4ed8;
-  --brand-soft: #dbeafe;
+  --surface: #edf2f9;
+  --surface-muted: #e3eaf5;
+  --surface-elevated: #f8fbff;
+  --surface-card: #ffffff;
+  --stroke-soft: rgba(12, 42, 71, 0.16);
+  --stroke-strong: rgba(12, 42, 71, 0.28);
+  --text-primary: #102133;
+  --text-muted: #47576a;
+  --text-inverse: #f5f9ff;
+  --brand: #0f4c81;
+  --brand-strong: #0a365d;
+  --brand-soft: #d8eaff;
+  --accent: #b56d07;
+  --accent-soft: #ffedcf;
+  --shadow-soft: 0 12px 30px rgba(15, 42, 69, 0.1);
+  --shadow-strong: 0 24px 55px rgba(15, 42, 69, 0.16);
 }
 
 * {
@@ -23,16 +32,53 @@ body {
 
 body {
   color: var(--text-primary);
-  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Sora", "Plus Jakarta Sans", "Avenir Next", "Segoe UI", sans-serif;
+  line-height: 1.5;
   background:
-    radial-gradient(1200px 600px at 100% -10%, rgba(59, 130, 246, 0.22), transparent 65%),
-    radial-gradient(800px 400px at -10% 100%, rgba(16, 185, 129, 0.16), transparent 60%),
+    radial-gradient(980px 420px at 100% -6%, rgba(15, 76, 129, 0.24), transparent 64%),
+    radial-gradient(700px 360px at -8% 100%, rgba(181, 109, 7, 0.2), transparent 62%),
+    radial-gradient(520px 260px at 45% 15%, rgba(8, 50, 86, 0.14), transparent 76%),
     var(--surface);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.34;
+  background-image:
+    linear-gradient(rgba(16, 33, 51, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 33, 51, 0.026) 1px, transparent 1px);
+  background-size: 22px 22px;
+  z-index: -1;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--brand) 76%, white 24%);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(15, 76, 129, 0.24);
+  color: #06192a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

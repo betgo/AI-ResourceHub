@@ -31,7 +31,7 @@ export function LogoutButton({ className }: LogoutButtonProps) {
       onClick={handleLogout}
       disabled={isPending}
       className={cn(
-        "rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 disabled:cursor-not-allowed disabled:opacity-70",
+        "rounded-full border border-[var(--stroke-strong)] bg-[var(--surface-card)] px-4 py-2 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand-strong)] disabled:cursor-not-allowed disabled:opacity-70",
         className,
       )}
     >

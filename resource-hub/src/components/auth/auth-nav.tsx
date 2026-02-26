@@ -24,7 +24,7 @@ export async function AuthNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+              className="rounded-full px-3 py-2 text-sm font-semibold text-[var(--text-muted)] transition hover:bg-[var(--brand-soft)] hover:text-[var(--brand-strong)]"
             >
               {item.label}
             </Link>
@@ -35,7 +35,7 @@ export async function AuthNav() {
           <>
             <Link
               href="/dashboard"
-              className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+              className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-semibold text-[var(--text-inverse)] shadow-[var(--shadow-soft)] transition hover:bg-[var(--brand-strong)]"
             >
               Dashboard
             </Link>
@@ -45,13 +45,13 @@ export async function AuthNav() {
           <>
             <Link
               href="/login"
-              className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400"
+              className="rounded-full border border-[var(--stroke-strong)] bg-[var(--surface-card)] px-4 py-2 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand-strong)]"
             >
               Log in
             </Link>
             <Link
               href="/register"
-              className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+              className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-semibold text-[var(--text-inverse)] shadow-[var(--shadow-soft)] transition hover:bg-[var(--brand-strong)]"
             >
               Create account
             </Link>
@@ -60,7 +60,7 @@ export async function AuthNav() {
       </div>
 
       <details className="group relative md:hidden">
-        <summary className="flex list-none h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-[var(--stroke-soft)] bg-white text-slate-700 transition hover:bg-slate-50 [&::-webkit-details-marker]:hidden">
+        <summary className="flex list-none h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-[var(--stroke-soft)] bg-[var(--surface-card)] text-[var(--text-primary)] transition hover:bg-[var(--surface-muted)] [&::-webkit-details-marker]:hidden">
           <span className="sr-only">Toggle navigation menu</span>
           <svg
             viewBox="0 0 24 24"
@@ -75,13 +75,13 @@ export async function AuthNav() {
             <path d="M4 17h16" />
           </svg>
         </summary>
-        <div className="absolute right-0 top-12 z-20 w-72 rounded-2xl border border-[var(--stroke-soft)] bg-white p-4 shadow-xl">
+        <div className="absolute right-0 top-12 z-20 w-72 rounded-2xl border border-[var(--stroke-soft)] bg-[var(--surface-card)] p-4 shadow-[var(--shadow-strong)]">
           <nav className="flex flex-col gap-1">
             {primaryNavItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+                className="rounded-xl px-3 py-2 text-sm font-semibold text-[var(--text-muted)] transition hover:bg-[var(--brand-soft)] hover:text-[var(--brand-strong)]"
               >
                 {item.label}
               </Link>
@@ -94,7 +94,7 @@ export async function AuthNav() {
             <div className="flex flex-col gap-2">
               <Link
                 href="/dashboard"
-                className="rounded-full bg-[var(--brand)] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-blue-700"
+                className="rounded-full bg-[var(--brand)] px-4 py-2 text-center text-sm font-semibold text-[var(--text-inverse)] shadow-[var(--shadow-soft)] transition hover:bg-[var(--brand-strong)]"
               >
                 Dashboard
               </Link>
@@ -104,13 +104,13 @@ export async function AuthNav() {
             <div className="flex flex-col gap-2">
               <Link
                 href="/login"
-                className="rounded-full border border-slate-300 bg-white px-4 py-2 text-center text-sm font-medium text-slate-700 transition hover:border-slate-400"
+                className="rounded-full border border-[var(--stroke-strong)] bg-[var(--surface-card)] px-4 py-2 text-center text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand-strong)]"
               >
                 Log in
               </Link>
               <Link
                 href="/register"
-                className="rounded-full bg-[var(--brand)] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-blue-700"
+                className="rounded-full bg-[var(--brand)] px-4 py-2 text-center text-sm font-semibold text-[var(--text-inverse)] shadow-[var(--shadow-soft)] transition hover:bg-[var(--brand-strong)]"
               >
                 Create account
               </Link>

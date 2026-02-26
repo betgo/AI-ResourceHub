@@ -229,8 +229,8 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
   return (
     <div className="py-10 sm:py-14">
       <Container className="space-y-6">
-        <section className="space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
+        <section className="space-y-3 rounded-3xl border border-[var(--stroke-soft)] bg-[color:color-mix(in_oklab,var(--surface-elevated)_90%,var(--brand-soft)_10%)] p-6 shadow-[var(--shadow-soft)] sm:p-7">
+          <h1 className="text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
             Browse Resources
           </h1>
           <p className="max-w-3xl text-sm leading-6 text-[var(--text-muted)] sm:text-base">
@@ -239,25 +239,25 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
           </p>
         </section>
 
-        <section className="rounded-2xl border border-[var(--stroke-soft)] bg-white p-5 shadow-sm sm:p-6">
+        <section className="rounded-2xl border border-[var(--stroke-soft)] bg-[var(--surface-card)] p-5 shadow-[var(--shadow-soft)] sm:p-6">
           <form method="get" className="space-y-4">
             <div className="grid gap-4 md:grid-cols-3">
               <label className="space-y-2 md:col-span-2">
-                <span className="text-sm font-medium text-slate-700">Keyword</span>
+                <span className="text-sm font-semibold text-[var(--text-primary)]">Keyword</span>
                 <input
                   name="keyword"
                   defaultValue={filters.keyword}
                   placeholder="Search by title or description..."
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                  className="w-full rounded-xl border border-[var(--stroke-soft)] bg-[var(--surface-elevated)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)]"
                 />
               </label>
 
               <label className="space-y-2">
-                <span className="text-sm font-medium text-slate-700">Sort by</span>
+                <span className="text-sm font-semibold text-[var(--text-primary)]">Sort by</span>
                 <select
                   name="sortBy"
                   defaultValue={filters.sortBy}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                  className="w-full rounded-xl border border-[var(--stroke-soft)] bg-[var(--surface-elevated)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)]"
                 >
                   {SORT_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -270,11 +270,11 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
 
             <div className="grid gap-4 md:grid-cols-2">
               <label className="space-y-2">
-                <span className="text-sm font-medium text-slate-700">Category</span>
+                <span className="text-sm font-semibold text-[var(--text-primary)]">Category</span>
                 <select
                   name="category"
                   defaultValue={selectedCategory?.slug ?? ""}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                  className="w-full rounded-xl border border-[var(--stroke-soft)] bg-[var(--surface-elevated)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)]"
                 >
                   <option value="">All categories</option>
                   {categories.map((category) => (
@@ -286,20 +286,20 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
               </label>
 
               <div className="space-y-2">
-                <span className="text-sm font-medium text-slate-700">Popular tags</span>
-                <div className="flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <span className="text-sm font-semibold text-[var(--text-primary)]">Popular tags</span>
+                <div className="flex flex-wrap gap-2 rounded-xl border border-[var(--stroke-soft)] bg-[var(--surface-muted)] p-3">
                   {tags.length > 0 ? (
                     tags.map((tag) => (
                       <label
                         key={tag.id}
-                        className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:border-slate-400"
+                        className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[var(--stroke-soft)] bg-[var(--surface-card)] px-3 py-1.5 text-xs font-semibold text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand-strong)]"
                       >
                         <input
                           type="checkbox"
                           name="tag"
                           value={tag.slug}
                           defaultChecked={filters.tagSlugs.includes(tag.slug)}
-                          className="h-3.5 w-3.5 rounded border-slate-300 text-blue-600"
+                          className="h-3.5 w-3.5 rounded border-[var(--stroke-soft)] text-[var(--brand)]"
                         />
                         {tag.name}
                       </label>
@@ -314,13 +314,13 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
             <div className="flex flex-wrap items-center gap-3">
               <button
                 type="submit"
-                className="rounded-full bg-[var(--brand)] px-5 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+                className="rounded-full bg-[var(--brand)] px-5 py-2 text-sm font-semibold text-[var(--text-inverse)] shadow-[var(--shadow-soft)] transition hover:bg-[var(--brand-strong)]"
               >
                 Apply filters
               </button>
               <Link
                 href="/resources"
-                className="rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400"
+                className="rounded-full border border-[var(--stroke-strong)] bg-[var(--surface-card)] px-5 py-2 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand-strong)]"
               >
                 Reset
               </Link>
@@ -354,10 +354,10 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
               {resourcesResult.items.map((resource) => (
                 <article
                   key={resource.id}
-                  className="rounded-2xl border border-[var(--stroke-soft)] bg-white p-5 shadow-sm"
+                  className="rounded-2xl border border-[var(--stroke-soft)] bg-[var(--surface-card)] p-5 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:border-[var(--brand)] hover:shadow-[var(--shadow-strong)]"
                 >
                   {resource.cover_url ? (
-                    <div className="relative mb-4 overflow-hidden rounded-xl border border-[var(--stroke-soft)] bg-slate-100">
+                    <div className="relative mb-4 overflow-hidden rounded-xl border border-[var(--stroke-soft)] bg-[var(--surface-muted)]">
                       <Image
                         src={resource.cover_url}
                         alt={`${resource.title} cover`}
@@ -373,26 +373,26 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                       {formatDateLabel(resource.published_at ?? resource.created_at)}
                     </p>
                     {resource.category_id ? (
-                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                      <span className="rounded-full border border-[var(--stroke-soft)] bg-[var(--surface-muted)] px-2.5 py-1 text-xs font-semibold text-[var(--text-primary)]">
                         {categoryNameById.get(resource.category_id) ?? "Category"}
                       </span>
                     ) : null}
                   </div>
-                  <h2 className="mt-3 text-lg font-semibold text-slate-900">{resource.title}</h2>
+                  <h2 className="mt-3 text-lg font-semibold text-[var(--text-primary)]">{resource.title}</h2>
                   <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
                     {summarizeText(resource.description, 140)}
                   </p>
-                  <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-medium text-slate-600">
-                    <span className="rounded-full bg-slate-100 px-2.5 py-1">
+                  <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-medium text-[var(--text-muted)]">
+                    <span className="rounded-full border border-[var(--stroke-soft)] bg-[var(--surface-muted)] px-2.5 py-1">
                       {resource.favorite_count} favorites
                     </span>
-                    <span className="rounded-full bg-slate-100 px-2.5 py-1">
+                    <span className="rounded-full border border-[var(--stroke-soft)] bg-[var(--surface-muted)] px-2.5 py-1">
                       {resource.download_count} downloads
                     </span>
                   </div>
                   <Link
                     href={`/resources/${resource.id}`}
-                    className="mt-4 inline-flex text-sm font-semibold text-[var(--brand)] transition hover:text-blue-700"
+                    className="mt-4 inline-flex text-sm font-semibold text-[var(--brand)] transition hover:text-[var(--brand-strong)]"
                   >
                     View details →
                   </Link>
@@ -405,7 +405,7 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                 <Link
                   href={previousHref}
                   aria-disabled={filters.page <= 1}
-                  className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+                  className="rounded-full border border-[var(--stroke-strong)] bg-[var(--surface-card)] px-4 py-2 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand-strong)] aria-disabled:pointer-events-none aria-disabled:opacity-40"
                 >
                   Previous
                 </Link>
@@ -415,7 +415,7 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                 <Link
                   href={nextHref}
                   aria-disabled={filters.page >= totalPages}
-                  className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+                  className="rounded-full border border-[var(--stroke-strong)] bg-[var(--surface-card)] px-4 py-2 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand-strong)] aria-disabled:pointer-events-none aria-disabled:opacity-40"
                 >
                   Next
                 </Link>
@@ -423,8 +423,8 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
             ) : null}
           </>
         ) : (
-          <section className="rounded-2xl border border-dashed border-[var(--stroke-soft)] bg-white p-10 text-center">
-            <h2 className="text-xl font-semibold text-slate-900">No resources found</h2>
+          <section className="rounded-2xl border border-dashed border-[var(--stroke-soft)] bg-[var(--surface-card)] p-10 text-center shadow-[var(--shadow-soft)]">
+            <h2 className="text-xl font-semibold text-[var(--text-primary)]">No resources found</h2>
             <p className="mt-2 text-sm text-[var(--text-muted)]">
               {hasFilters
                 ? "Try adjusting keyword, category, or tags to broaden your search."
@@ -434,14 +434,14 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
               {hasFilters ? (
                 <Link
                   href="/resources"
-                  className="rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400"
+                  className="rounded-full border border-[var(--stroke-strong)] bg-[var(--surface-card)] px-5 py-2 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand-strong)]"
                 >
                   Clear filters
                 </Link>
               ) : null}
               <Link
                 href="/submit"
-                className="rounded-full bg-[var(--brand)] px-5 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+                className="rounded-full bg-[var(--brand)] px-5 py-2 text-sm font-semibold text-[var(--text-inverse)] transition hover:bg-[var(--brand-strong)]"
               >
                 Publish resource
               </Link>

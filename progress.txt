@@ -425,3 +425,23 @@
 ### Notes:
 - Lighthouse 自检显示性能与 SEO 关键指标达标；主要剩余问题集中在部分色彩对比与触控目标尺寸（Accessibility），不阻塞本任务目标。
 - 构建阶段仍提示 Next.js `middleware` 命名弃用（建议后续迁移到 `proxy`），不影响本任务通过。
+
+## 2026-02-26 - Task: 最终联调与验收
+
+### What was done:
+- 在 `resource-hub/` 运行最终验收要求的静态检查与构建验证：`npm run lint`、`npm run build`。
+- 使用 Playwright MCP 执行真实浏览器联调，按流程验证注册、登录、发布入口和上传提交流程。
+- 更新 `resource-hub/README.md`，补充端到端验收流、Known Issues 与人工恢复步骤。
+
+### Testing:
+- 运行 `npm run lint`（in `resource-hub/`）: pass
+- 运行 `npm run build`（in `resource-hub/`）: pass
+- 使用 Playwright MCP 访问 `http://127.0.0.1:3000/register`，提交新账号注册，页面返回 `Registration submitted`（需邮箱确认）: pass
+- 使用 Playwright MCP 登录测试账号并访问 `/submit`，完成资源文件上传后提交，接口返回 `Could not find the table 'public.resources' in the schema cache`: blocked
+
+### Notes:
+- 阻塞根因：当前 Supabase 项目未应用核心 schema（至少缺失 `public.resources`），导致发布链路在 `POST /api/resources` 失败，后续“审核→浏览→收藏→评论→下载”无法形成闭环验收。
+- 需要人工操作：
+- 将 `resource-hub/supabase/migrations/20260217182000_create_resourcehub_core_schema.sql` 与 `resource-hub/supabase/migrations/20260225183000_optimize_resource_listing_indexes.sql` 应用到当前 Supabase 项目。
+- 准备可直接登录的已确认测试账号（或临时关闭邮箱确认）以及管理员账号（`app_metadata.role=admin`）。
+- 按阻塞规则，本任务当前保持 `task.json` 中 `passes: false`，未标记完成。
